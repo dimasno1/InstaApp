@@ -22,12 +22,11 @@ class MapViewController: UIViewController, BaseViewControllerChild {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         mapView.frame = view.bounds
         
         view.addSubview(mapView)
     }
-  
+
     private var photosMeta: [PhotoMeta] = []
     private let mapView = MKMapView()
 }

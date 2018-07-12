@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		524F64C020F7ADED00999CC9 /* Parameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524F64BF20F7ADED00999CC9 /* Parameter.swift */; };
 		52DFC9D220F78E210003B671 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DFC9D120F78E210003B671 /* AppDelegate.swift */; };
 		52DFC9D920F78E230003B671 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52DFC9D820F78E230003B671 /* Assets.xcassets */; };
 		52DFC9DC20F78E230003B671 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52DFC9DA20F78E230003B671 /* LaunchScreen.storyboard */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		524F64BF20F7ADED00999CC9 /* Parameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameter.swift; sourceTree = "<group>"; };
 		52DFC9CE20F78E210003B671 /* InstaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52DFC9D120F78E210003B671 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52DFC9D820F78E230003B671 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				52DFC9EE20F79BB40003B671 /* PhotoMeta.swift */,
+				524F64BF20F7ADED00999CC9 /* Parameter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -173,6 +176,7 @@
 				52DFC9D220F78E210003B671 /* AppDelegate.swift in Sources */,
 				52DFC9E820F7917B0003B671 /* MapViewController.swift in Sources */,
 				52DFC9EF20F79BB40003B671 /* PhotoMeta.swift in Sources */,
+				524F64C020F7ADED00999CC9 /* Parameter.swift in Sources */,
 				52DFC9EA20F791CB0003B671 /* ListViewController.swift in Sources */,
 				52DFC9E520F78E950003B671 /* BaseViewController.swift in Sources */,
 			);

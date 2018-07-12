@@ -26,20 +26,21 @@ class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        mainViewContainer.frame = view.bounds
-        addChild(controllerCurrentlyOnScreen, to: mainViewContainer)
+        setup()
         
         view.addSubview(mainViewContainer)
+        view.addSubview(searchBar)
+        
+        addChild(controllerCurrentlyOnScreen, to: mainViewContainer)
     }
     
     private func addChild(_ controller: UIViewController, to container: UIView) {
         self.addChildViewController(controller)
-        controller.view.frame = container.frame
+        controller.view.frame = container.bounds
         container.addSubview(controller.view)
         controller.didMove(toParentViewController: self)
     }
-
+    
     enum MainView {
         case map
         case list
@@ -52,6 +53,13 @@ class BaseViewController: UIViewController {
             case .initial: return InitialViewController()
             }
         }
+    }
+    
+    private func setup() {
+        searchBar.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: view.frame.size.width, height: 75))
+        searchBar.showsScopeBar = true
+        
+        mainViewContainer.frame = CGRect(x: 0, y: searchBar.frame.size.height, width: searchBar.frame.size.width, height: view.frame.size.height - 75)
     }
     
     private var controllerCurrentlyOnScreen: UIViewController

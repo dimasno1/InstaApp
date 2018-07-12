@@ -19,10 +19,17 @@ class ListViewController: UIViewController, BaseViewControllerChild {
         fatalError("Not implemented")
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        collectionView = UICollectionView(frame: view.bounds)
+    }
+    
     private var meta: [PhotoMeta] = []
+    private var collectionView = UICollectionView()
 }
 
-extension ListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     //FIXME: Add model
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
