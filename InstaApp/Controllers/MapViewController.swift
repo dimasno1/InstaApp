@@ -10,5 +10,24 @@ import UIKit
 import MapKit
 
 class MapViewController: UIViewController, BaseViewControllerChild {
+    
+    init(meta: [PhotoMeta]) {
+        super.init(nibName: nil, bundle: nil)
+        self.photosMeta = meta
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("Not implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        mapView.frame = view.bounds
+        
+        view.addSubview(mapView)
+    }
   
+    private var photosMeta: [PhotoMeta] = []
+    private let mapView = MKMapView()
 }

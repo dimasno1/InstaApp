@@ -8,6 +8,29 @@
 
 import UIKit
 
-class ListViewController: UICollectionViewController, BaseViewControllerChild {
+class ListViewController: UIViewController, BaseViewControllerChild {
   
+    init(meta: [PhotoMeta]) {
+        super.init(nibName: nil, bundle: nil)
+        self.meta = meta
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("Not implemented")
+    }
+    
+    private var meta: [PhotoMeta] = []
+}
+
+extension ListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    //FIXME: Add model
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    //FIXME: Add custom cell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
 }

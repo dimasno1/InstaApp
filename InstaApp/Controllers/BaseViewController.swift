@@ -16,16 +16,21 @@ protocol BaseViewControllerChild where Self: UIViewController {
 class BaseViewController: UIViewController {
     
     init(with view: MainView) {
-        addChild(view.controller(), to: mainViewContainer)
+        controllerCurrentlyOnScreen = view.controller()
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(nibName: nil, bundle: nil)
+        fatalError("Not implemented")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        mainViewContainer.frame = view.bounds
+        addChild(controllerCurrentlyOnScreen, to: mainViewContainer)
+        
+        view.addSubview(mainViewContainer)
     }
     
     private func addChild(_ controller: UIViewController, to container: UIView) {
@@ -40,15 +45,17 @@ class BaseViewController: UIViewController {
         case list
         case initial
         
-        func controller() -> UIViewController {
+        func controller(meta: [PhotoMeta] = []) -> UIViewController {
             switch self {
-            case .map: return MapViewController()
-            case .list: return ListViewController()
+            case .map: return MapViewController(meta: meta)
+            case .list: return ListViewController(meta: meta)
             case .initial: return InitialViewController()
             }
         }
     }
     
+    private var controllerCurrentlyOnScreen: UIViewController
+    private var searchBar = UISearchBar()
     private let mainViewContainer = UIView()
 }
 

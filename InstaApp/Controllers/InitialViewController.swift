@@ -10,4 +10,13 @@ import UIKit
 
 class InitialViewController: UIViewController, BaseViewControllerChild {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
+    
+    enum State {
+        case error
+        case loading
+    }
 }

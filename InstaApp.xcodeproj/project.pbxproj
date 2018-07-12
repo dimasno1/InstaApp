@@ -14,6 +14,7 @@
 		52DFC9E820F7917B0003B671 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DFC9E720F7917B0003B671 /* MapViewController.swift */; };
 		52DFC9EA20F791CB0003B671 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DFC9E920F791CB0003B671 /* ListViewController.swift */; };
 		52DFC9EC20F792670003B671 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DFC9EB20F792670003B671 /* InitialViewController.swift */; };
+		52DFC9EF20F79BB40003B671 /* PhotoMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DFC9EE20F79BB40003B671 /* PhotoMeta.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		52DFC9E920F791CB0003B671 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		52DFC9EB20F792670003B671 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		52DFC9ED20F798380003B671 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		52DFC9EE20F79BB40003B671 /* PhotoMeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMeta.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				52DFC9D120F78E210003B671 /* AppDelegate.swift */,
+				52DFC9F020F79BBB0003B671 /* Model */,
 				52DFC9E620F78EE80003B671 /* Controllers */,
 				52DFC9E320F78E4A0003B671 /* SupportingFiles */,
 			);
@@ -86,6 +89,14 @@
 				52DFC9EB20F792670003B671 /* InitialViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		52DFC9F020F79BBB0003B671 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				52DFC9EE20F79BB40003B671 /* PhotoMeta.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,6 +172,7 @@
 				52DFC9EC20F792670003B671 /* InitialViewController.swift in Sources */,
 				52DFC9D220F78E210003B671 /* AppDelegate.swift in Sources */,
 				52DFC9E820F7917B0003B671 /* MapViewController.swift in Sources */,
+				52DFC9EF20F79BB40003B671 /* PhotoMeta.swift in Sources */,
 				52DFC9EA20F791CB0003B671 /* ListViewController.swift in Sources */,
 				52DFC9E520F78E950003B671 /* BaseViewController.swift in Sources */,
 			);
