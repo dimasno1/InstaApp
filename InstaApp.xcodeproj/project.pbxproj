@@ -26,6 +26,7 @@
 		52DFC9E720F7917B0003B671 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		52DFC9E920F791CB0003B671 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		52DFC9EB20F792670003B671 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
+		52DFC9ED20F798380003B671 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +43,7 @@
 		52DFC9C520F78E210003B671 = {
 			isa = PBXGroup;
 			children = (
+				52DFC9ED20F798380003B671 /* README.md */,
 				52DFC9D020F78E210003B671 /* InstaApp */,
 				52DFC9CF20F78E210003B671 /* Products */,
 			);
