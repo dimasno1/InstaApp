@@ -8,25 +8,54 @@
 
 import UIKit
 
-class InitialViewController: UIViewController, BaseViewControllerChild {
+class InitialViewController: UIViewController, CanBeChildViewController {
+    
+    var isAuthorized: Bool = false
+    var state: State
+    
+    init(state: State = .succes) {
+        self.state = state
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("Not implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setup()
+        
+        view.backgroundColor = .white
+        view.addSubview(stateTextLabel)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        guard let url = URL(string: "https://api.instagram.com/oauth/authorize/?client_id=\(Parameter.ID)&redirect_uri=\(Parameter.redirectURL)&response_type=token") else {
-            return
-        }
-        print(url)
-   
-        UIApplication.shared.open(url)
     }
-
+  
+    private func changeState(to: State) {
+        self.state = to
+    }
+    
+    private func setup() {
+        stateTextLabel.text = state.description
+        stateTextLabel.sizeToFit()
+        stateTextLabel.center = view.center
+    }
+   
     enum State {
         case error
-        case loading
+        case succes
+        
+        var description: String {
+            switch self {
+            case .error: return "Error authorizing"
+            case .succes: return "Try to search for photos"
+            }
+        }
     }
+    
+    private let stateTextLabel = UILabel()
 }

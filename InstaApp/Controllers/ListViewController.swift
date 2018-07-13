@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ListViewController: UIViewController, BaseViewControllerChild {
+class ListViewController: UIViewController, CanBeChildViewController {
   
     init(meta: [PhotoMeta]) {
         super.init(nibName: nil, bundle: nil)
@@ -22,11 +22,11 @@ class ListViewController: UIViewController, BaseViewControllerChild {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView = UICollectionView(frame: view.bounds)
+//        collectionView = UICollectionView(frame: view.bounds)
     }
     
     private var meta: [PhotoMeta] = []
-    private var collectionView = UICollectionView()
+//    private var collectionView = UICollectionView()
 }
 
 extension ListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
