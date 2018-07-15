@@ -15,7 +15,7 @@ protocol AuthorizeViewControllerDelegate: AnyObject {
 
 typealias Token = (String, String)
 
-class AuthorizeViewController: UIViewController, CanBeChildViewController {
+class AuthorizeViewController: UIViewController {
     
     weak var delegate: AuthorizeViewControllerDelegate?
     
@@ -51,6 +51,7 @@ class AuthorizeViewController: UIViewController, CanBeChildViewController {
         let tokenComponents = value.components(separatedBy: ".")
         let user = tokenComponents.first ?? ""
         let accessToken = tokenComponents.dropFirst().joined(separator: ".")
+        print(user, accessToken)
         let token = Token(user, accessToken)
         
         delegate?.didReceive(self, token: token)

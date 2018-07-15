@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController, CanBeChildViewController {
+class MapViewController: UIViewController {
     
     init(meta: [PhotoMeta]) {
         super.init(nibName: nil, bundle: nil)
@@ -26,12 +26,7 @@ class MapViewController: UIViewController, CanBeChildViewController {
         
         view.addSubview(mapView)
     }
-    
-    deinit {
-        print("DEINITED INITIAL")
-    }
 
-    
     private var photosMeta: [PhotoMeta] = []
     private let mapView = MKMapView()
 }

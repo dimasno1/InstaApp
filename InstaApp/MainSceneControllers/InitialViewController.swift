@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InitialViewController: UIViewController, CanBeChildViewController {
+class InitialViewController: UIViewController {
     
     var isAuthorized: Bool = false
     var state: State

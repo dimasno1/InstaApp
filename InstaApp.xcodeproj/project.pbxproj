@@ -68,7 +68,7 @@
 			children = (
 				52DFC9D120F78E210003B671 /* AppDelegate.swift */,
 				52DFC9F020F79BBB0003B671 /* Model */,
-				52DFC9E620F78EE80003B671 /* Controllers */,
+				52DFC9E620F78EE80003B671 /* MainSceneControllers */,
 				52DFC9E320F78E4A0003B671 /* SupportingFiles */,
 			);
 			path = InstaApp;
@@ -84,7 +84,7 @@
 			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
-		52DFC9E620F78EE80003B671 /* Controllers */ = {
+		52DFC9E620F78EE80003B671 /* MainSceneControllers */ = {
 			isa = PBXGroup;
 			children = (
 				52DFC9E420F78E950003B671 /* MainViewController.swift */,
@@ -93,7 +93,7 @@
 				52DFC9E720F7917B0003B671 /* MapViewController.swift */,
 				52DFC9E920F791CB0003B671 /* ListViewController.swift */,
 			);
-			path = Controllers;
+			path = MainSceneControllers;
 			sourceTree = "<group>";
 		};
 		52DFC9F020F79BBB0003B671 /* Model */ = {

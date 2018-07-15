@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol CanBeChildViewController where Self: UIViewController {
-    func deleteFromParent()
-}
-
 class MainViewController: UIViewController {
     var authorized: Bool
     
@@ -39,8 +35,7 @@ class MainViewController: UIViewController {
         view.addSubview(searchBar)
     }
     
-    private func addChild(_ controller: CanBeChildViewController, to container: UIView) {
-        guard let controller = controller as? UIViewController else { return }
+    private func addChild(_ controller: UIViewController, to container: UIView) {
         self.addChildViewController(controller)
         controller.view.frame = container.bounds
         container.addSubview(controller.view)
@@ -70,7 +65,7 @@ class MainViewController: UIViewController {
         case initial
         case authorize
         
-        func controller(meta: [PhotoMeta] = []) -> CanBeChildViewController {
+        func controller(meta: [PhotoMeta] = []) -> UIViewController {
             switch self {
             case .map: return MapViewController(meta: meta)
             case .list: return ListViewController(meta: meta)
