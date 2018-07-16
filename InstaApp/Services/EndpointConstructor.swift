@@ -32,8 +32,7 @@ class EndpointConstructor {
             let queryItem = URLQueryItem(name: parameter.key.rawValue, value: parameter.value)
             urlQueryItems.append(queryItem)
         }
-        
-        
+    
         urlComponents.queryItems = urlQueryItems
         
         return urlComponents.url

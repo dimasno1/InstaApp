@@ -11,6 +11,7 @@
 		527BB32620FBBE6B007EA4E9 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527BB32520FBBE6B007EA4E9 /* Endpoint.swift */; };
 		52AABF7A20F89CDD0044AA00 /* AuthorizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AABF7920F89CDD0044AA00 /* AuthorizeViewController.swift */; };
 		52BB514420FC831600977418 /* EndpointConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB514320FC831600977418 /* EndpointConstructor.swift */; };
+		52BB514820FC948600977418 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB514720FC948600977418 /* NetworkService.swift */; };
 		52DFC9D220F78E210003B671 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DFC9D120F78E210003B671 /* AppDelegate.swift */; };
 		52DFC9D920F78E230003B671 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52DFC9D820F78E230003B671 /* Assets.xcassets */; };
 		52DFC9DC20F78E230003B671 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52DFC9DA20F78E230003B671 /* LaunchScreen.storyboard */; };
@@ -26,6 +27,7 @@
 		527BB32520FBBE6B007EA4E9 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		52AABF7920F89CDD0044AA00 /* AuthorizeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeViewController.swift; sourceTree = "<group>"; };
 		52BB514320FC831600977418 /* EndpointConstructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointConstructor.swift; sourceTree = "<group>"; };
+		52BB514720FC948600977418 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		52DFC9CE20F78E210003B671 /* InstaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52DFC9D120F78E210003B671 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52DFC9D820F78E230003B671 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -54,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				52BB514320FC831600977418 /* EndpointConstructor.swift */,
+				52BB514720FC948600977418 /* NetworkService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52BB514820FC948600977418 /* NetworkService.swift in Sources */,
 				52DFC9EC20F792670003B671 /* InitialViewController.swift in Sources */,
 				527BB32620FBBE6B007EA4E9 /* Endpoint.swift in Sources */,
 				52DFC9D220F78E210003B671 /* AppDelegate.swift in Sources */,

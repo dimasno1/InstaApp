@@ -75,6 +75,7 @@ class MainViewController: UIViewController {
         }
     }
     
+    private var token: Token = ""
     private var mainView: MainView
     private var searchBar = UISearchBar()
     private let mainViewContainer = UIView()
@@ -83,7 +84,36 @@ class MainViewController: UIViewController {
 extension MainViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        changeMainView(to: searchBar.selectedScopeButtonIndex == 0 ? .map : .list)
+        if authorized {
+            changeMainView(to: searchBar.selectedScopeButtonIndex == 0 ? .map : .list)
+            
+            let searchWord = searchBar.text ?? ""
+            let endpointParameters = [
+                Endpoint.Parameter.max_tag_id: "123124",
+                Endpoint.Parameter.min_tag_id: "123123",
+                Endpoint.Parameter.count: "20"
+            ]
+            
+            let endpoint = Endpoint(purpose: .tags, parameters: endpointParameters)
+            let endpointConstructor = EndpointConstructor(endpoint: endpoint)
+            
+            guard let url = endpointConstructor.makeURL(with: token, searchWord: searchWord) else {
+                return
+            }
+            
+            let networkService = NetworkService()
+            
+            networkService.makeRequest(for: url, endpoint: endpoint)
+            
+        } else {
+            guard let controller = self.childViewControllers.first as? InitialViewController else {
+                return
+            }
+            
+            controller.changeState(to: .error)
+        }
+        
+        searchBar.resignFirstResponder()
     }
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
@@ -95,6 +125,7 @@ extension MainViewController: AuthorizeViewControllerDelegate {
     
     func didReceive(_ authorizeViewController: AuthorizeViewController, token: Token) {
         authorized = true
+        self.token = token
         changeMainView(to: .initial)
     }
 }

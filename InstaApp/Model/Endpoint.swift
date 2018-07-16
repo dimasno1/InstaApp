@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class Endpoint {
     
     init(purpose: Purpose, parameters: [Parameter: String]) {

@@ -35,8 +35,9 @@ class InitialViewController: UIViewController {
         
     }
   
-    private func changeState(to: State) {
+    func changeState(to: State) {
         self.state = to
+        setup()
     }
     
     private func setup() {
@@ -51,7 +52,7 @@ class InitialViewController: UIViewController {
         
         var description: String {
             switch self {
-            case .error: return "Error authorizing"
+            case .error: return "Sorry, you're not authorized"
             case .succes: return "Try to search for photos"
             }
         }
