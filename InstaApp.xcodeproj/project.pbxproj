@@ -50,13 +50,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		52BB514520FC8DC900977418 /* Services */ = {
+		52BB514620FC8E4000977418 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				52BB514320FC831600977418 /* EndpointConstructor.swift */,
 			);
-			name = Services;
-			path = "New Group";
+			path = Services;
 			sourceTree = "<group>";
 		};
 		52DFC9C520F78E210003B671 = {
@@ -82,7 +81,7 @@
 				52DFC9D120F78E210003B671 /* AppDelegate.swift */,
 				52DFC9F020F79BBB0003B671 /* Model */,
 				52DFC9E620F78EE80003B671 /* MainSceneControllers */,
-				52BB514520FC8DC900977418 /* Services */,
+				52BB514620FC8E4000977418 /* Services */,
 				52DFC9E320F78E4A0003B671 /* SupportingFiles */,
 			);
 			path = InstaApp;
