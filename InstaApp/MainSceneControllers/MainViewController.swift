@@ -66,7 +66,7 @@ class MainViewController: UIViewController {
         case initial
         case authorize
         
-        func controller(meta: [PhotoMeta] = []) -> UIViewController {
+        func controller(meta: [InstaMeta] = []) -> UIViewController {
             switch self {
             case .map: return MapViewController(meta: meta)
             case .list: return ListViewController(meta: meta)
@@ -91,12 +91,10 @@ extension MainViewController: UISearchBarDelegate {
             
             let searchWord = searchBar.text ?? ""
             let endpointParameters = [
-                Endpoint.Parameter.max_tag_id: "123124",
-                Endpoint.Parameter.min_tag_id: "123123",
                 Endpoint.Parameter.count: "20"
             ]
             
-            let endpoint = Endpoint(purpose: .tags, parameters: endpointParameters)
+            let endpoint = Endpoint(purpose: .users, parameters: endpointParameters)
             let endpointConstructor = EndpointConstructor(endpoint: endpoint)
             
             guard let url = endpointConstructor.makeURL(with: token, searchWord: searchWord) else { return }
@@ -127,6 +125,22 @@ extension MainViewController: AuthorizeViewControllerDelegate {
 extension MainViewController: NetworkServiceDelegate {
     
     func didReceive(_ networkService: NetworkService, data: Data?, with error: Error?) {
-
+        guard let data = data else {
+            return
+        }
+        
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        
+        guard let instaResponce = try? decoder.decode(InstaResponce.self, from: data), let instaData = instaResponce.data else {
+            return
+        }
+        
+        instaData.forEach { meta in
+            switch meta {
+            case .photoMeta(let photoMeta): break
+            case .videoMeta(let videoMeta): print(videoMeta.type, videoMeta.caption, videoMeta.videos)
+            }
+        } 
     }
 }

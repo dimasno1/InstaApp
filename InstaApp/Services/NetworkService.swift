@@ -34,6 +34,7 @@ extension NetworkService: URLSessionDelegate, URLSessionDataDelegate {
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         self.delegate?.didReceive(self, data: data, with: nil)
+        session.finishTasksAndInvalidate()
     }
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {

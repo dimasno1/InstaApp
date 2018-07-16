@@ -10,7 +10,7 @@ import UIKit
 
 class ListViewController: UIViewController {
   
-    init(meta: [PhotoMeta]) {
+    init(meta: [InstaMeta]) {
         super.init(nibName: nil, bundle: nil)
         collectionView.frame = view.bounds
         self.meta = meta
@@ -32,7 +32,7 @@ class ListViewController: UIViewController {
         view.addSubview(collectionView)
     }
     
-    private var meta: [PhotoMeta] = []
+    private var meta: [InstaMeta] = []
     private var collectionView: UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
 }
 

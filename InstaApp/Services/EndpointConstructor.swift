@@ -54,7 +54,7 @@ extension EndpointConstructor {
             static let usersPath = "users/self/"
             static let commentsPath = "media/"
             static let commentsParameter = "/comments"
-            static let recentMediaPath = "/media/recent"
+            static let recentMediaPath = "media/recent"
         }
     }
 }

@@ -12,6 +12,9 @@
 		52AABF7A20F89CDD0044AA00 /* AuthorizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AABF7920F89CDD0044AA00 /* AuthorizeViewController.swift */; };
 		52BB514420FC831600977418 /* EndpointConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB514320FC831600977418 /* EndpointConstructor.swift */; };
 		52BB514820FC948600977418 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB514720FC948600977418 /* NetworkService.swift */; };
+		52BB515020FCAA5200977418 /* InstaMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB514F20FCAA5200977418 /* InstaMeta.swift */; };
+		52BB515220FCC29000977418 /* InstaResponce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB515120FCC29000977418 /* InstaResponce.swift */; };
+		52BB515420FCE78100977418 /* InstaVideoMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB515320FCE78100977418 /* InstaVideoMeta.swift */; };
 		52DFC9D220F78E210003B671 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DFC9D120F78E210003B671 /* AppDelegate.swift */; };
 		52DFC9D920F78E230003B671 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52DFC9D820F78E230003B671 /* Assets.xcassets */; };
 		52DFC9DC20F78E230003B671 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52DFC9DA20F78E230003B671 /* LaunchScreen.storyboard */; };
@@ -19,7 +22,6 @@
 		52DFC9E820F7917B0003B671 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DFC9E720F7917B0003B671 /* MapViewController.swift */; };
 		52DFC9EA20F791CB0003B671 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DFC9E920F791CB0003B671 /* ListViewController.swift */; };
 		52DFC9EC20F792670003B671 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DFC9EB20F792670003B671 /* InitialViewController.swift */; };
-		52DFC9EF20F79BB40003B671 /* PhotoMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DFC9EE20F79BB40003B671 /* PhotoMeta.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,9 @@
 		52AABF7920F89CDD0044AA00 /* AuthorizeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeViewController.swift; sourceTree = "<group>"; };
 		52BB514320FC831600977418 /* EndpointConstructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointConstructor.swift; sourceTree = "<group>"; };
 		52BB514720FC948600977418 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		52BB514F20FCAA5200977418 /* InstaMeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstaMeta.swift; sourceTree = "<group>"; };
+		52BB515120FCC29000977418 /* InstaResponce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstaResponce.swift; sourceTree = "<group>"; };
+		52BB515320FCE78100977418 /* InstaVideoMeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstaVideoMeta.swift; sourceTree = "<group>"; };
 		52DFC9CE20F78E210003B671 /* InstaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52DFC9D120F78E210003B671 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52DFC9D820F78E230003B671 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -38,7 +43,6 @@
 		52DFC9E920F791CB0003B671 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		52DFC9EB20F792670003B671 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		52DFC9ED20F798380003B671 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		52DFC9EE20F79BB40003B671 /* PhotoMeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMeta.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,8 +120,10 @@
 			isa = PBXGroup;
 			children = (
 				527BB32520FBBE6B007EA4E9 /* Endpoint.swift */,
-				52DFC9EE20F79BB40003B671 /* PhotoMeta.swift */,
 				524F64BF20F7ADED00999CC9 /* URLConstant.swift */,
+				52BB515120FCC29000977418 /* InstaResponce.swift */,
+				52BB514F20FCAA5200977418 /* InstaMeta.swift */,
+				52BB515320FCE78100977418 /* InstaVideoMeta.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -194,11 +200,13 @@
 			files = (
 				52BB514820FC948600977418 /* NetworkService.swift in Sources */,
 				52DFC9EC20F792670003B671 /* InitialViewController.swift in Sources */,
+				52BB515420FCE78100977418 /* InstaVideoMeta.swift in Sources */,
 				527BB32620FBBE6B007EA4E9 /* Endpoint.swift in Sources */,
 				52DFC9D220F78E210003B671 /* AppDelegate.swift in Sources */,
+				52BB515020FCAA5200977418 /* InstaMeta.swift in Sources */,
 				52AABF7A20F89CDD0044AA00 /* AuthorizeViewController.swift in Sources */,
 				52DFC9E820F7917B0003B671 /* MapViewController.swift in Sources */,
-				52DFC9EF20F79BB40003B671 /* PhotoMeta.swift in Sources */,
+				52BB515220FCC29000977418 /* InstaResponce.swift in Sources */,
 				524F64C020F7ADED00999CC9 /* URLConstant.swift in Sources */,
 				52DFC9EA20F791CB0003B671 /* ListViewController.swift in Sources */,
 				52DFC9E520F78E950003B671 /* MainViewController.swift in Sources */,
