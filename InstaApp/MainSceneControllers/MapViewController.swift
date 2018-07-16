@@ -30,3 +30,13 @@ class MapViewController: UIViewController {
     private var photosMeta: [PhotoMeta] = []
     private let mapView = MKMapView()
 }
+
+extension UIViewController {
+    
+    func deleteFromParent() {
+        willMove(toParentViewController: nil)
+        view.removeFromSuperview()
+        removeFromParentViewController()
+        didMove(toParentViewController: nil)
+    }
+}

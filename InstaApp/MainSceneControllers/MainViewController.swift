@@ -31,6 +31,7 @@ class MainViewController: UIViewController {
             addChild(controller, to: mainViewContainer)
         }
         
+        networkService.delegate = self
         view.addSubview(mainViewContainer)
         view.addSubview(searchBar)
     }
@@ -79,6 +80,7 @@ class MainViewController: UIViewController {
     private var mainView: MainView
     private var searchBar = UISearchBar()
     private let mainViewContainer = UIView()
+    private let networkService = NetworkService()
 }
 
 extension MainViewController: UISearchBarDelegate {
@@ -97,19 +99,11 @@ extension MainViewController: UISearchBarDelegate {
             let endpoint = Endpoint(purpose: .tags, parameters: endpointParameters)
             let endpointConstructor = EndpointConstructor(endpoint: endpoint)
             
-            guard let url = endpointConstructor.makeURL(with: token, searchWord: searchWord) else {
-                return
-            }
-            
-            let networkService = NetworkService()
-            
-            networkService.makeRequest(for: url, endpoint: endpoint)
-            
+            guard let url = endpointConstructor.makeURL(with: token, searchWord: searchWord) else { return }
+            print(url)
+            networkService.makeRequest(for: url)
         } else {
-            guard let controller = self.childViewControllers.first as? InitialViewController else {
-                return
-            }
-            
+            guard let controller = self.childViewControllers.first as? InitialViewController else { return }
             controller.changeState(to: .error)
         }
         
@@ -130,12 +124,9 @@ extension MainViewController: AuthorizeViewControllerDelegate {
     }
 }
 
-extension UIViewController {
+extension MainViewController: NetworkServiceDelegate {
     
-    func deleteFromParent() {
-        willMove(toParentViewController: nil)
-        view.removeFromSuperview()
-        removeFromParentViewController()
-        didMove(toParentViewController: nil)
+    func didReceive(_ networkService: NetworkService, data: Data?, with error: Error?) {
+
     }
 }
