@@ -13,7 +13,7 @@ protocol AuthorizeViewControllerDelegate: AnyObject {
     func didReceive(_ authorizeViewController: AuthorizeViewController, token: Token)
 }
 
-typealias Token = (String, String)
+typealias Token = String
 
 class AuthorizeViewController: UIViewController {
     
@@ -47,16 +47,6 @@ class AuthorizeViewController: UIViewController {
         webView.load(urlRequest)
     }
     
-    private func handleToken(_ value: String) {
-        let tokenComponents = value.components(separatedBy: ".")
-        let user = tokenComponents.first ?? ""
-        let accessToken = tokenComponents.dropFirst().joined(separator: ".")
-        print(user, accessToken)
-        let token = Token(user, accessToken)
-        
-        delegate?.didReceive(self, token: token)
-    }
-    
     private let webView = WKWebView()
 }
 
@@ -75,7 +65,7 @@ extension AuthorizeViewController: WKNavigationDelegate {
             }
             
             let accessToken = String(stringNavigationURL[range.upperBound...])
-            handleToken(accessToken)
+            delegate?.didReceive(self, token: accessToken)
         }
     }
 }
