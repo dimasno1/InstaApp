@@ -50,31 +50,33 @@ class InstaMeta: Decodable {
     }
 }
 
-struct User: Codable {
-    var id: String
-    var fullName: String
-    var profilePicture: String
-    var username: String
-}
-
-struct Image: Codable {
-    var width: Int
-    var height: Int
-    var url: String
-}
-
-struct Caption: Codable {
-    let id: String
-    let text: String
-    let createdTime: String
-    let from: User
-}
-
-struct Location: Codable {
-    let latitude: Double
-    let id: String
-    let longitude: Double
-    let name: String
+extension InstaMeta {
+    struct User: Codable {
+        var id: String
+        var fullName: String
+        var profilePicture: String
+        var username: String
+    }
+    
+    struct Image: Codable {
+        var width: Int
+        var height: Int
+        var url: String
+    }
+    
+    struct Caption: Codable {
+        let id: String
+        let text: String
+        let createdTime: String
+        let from: User
+    }
+    
+    struct Location: Codable {
+        let latitude: Double
+        let id: String
+        let longitude: Double
+        let name: String
+    }
 }
 
 enum Type<T,U>: Decodable where T:Decodable, U:Decodable {

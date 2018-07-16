@@ -31,9 +31,26 @@ class MainViewController: UIViewController {
             addChild(controller, to: mainViewContainer)
         }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(changeFrame(with:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeFrame(with:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
         networkService.delegate = self
         view.addSubview(mainViewContainer)
         view.addSubview(searchBar)
+    }
+    
+    @objc private func changeFrame(with notification: NSNotification) {
+        guard let userInfo = notification.userInfo, let keyboardBounds = userInfo["UIKeyboardFrameEndUserInfoKey"] as? CGRect else {
+            return
+        }
+        let height = keyboardBounds.height
+
+        if notification.name == .UIKeyboardWillShow {
+            mainViewContainer.frame.origin.y = searchBar.frame.size.height
+            mainViewContainer.frame.origin.y -= height
+        } else {
+            mainViewContainer.frame.origin.y += height
+        }
     }
     
     private func addChild(_ controller: UIViewController, to container: UIView) {
@@ -69,7 +86,7 @@ class MainViewController: UIViewController {
         func controller(meta: [InstaMeta] = []) -> UIViewController {
             switch self {
             case .map: return MapViewController(meta: meta)
-            case .list: return ListViewController(meta: meta)
+            case .list: return ListCollectionViewController(meta: meta)
             case .initial: return InitialViewController()
             case .authorize: return AuthorizeViewController()
             }
@@ -84,6 +101,10 @@ class MainViewController: UIViewController {
 }
 
 extension MainViewController: UISearchBarDelegate {
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if authorized {
