@@ -8,9 +8,9 @@
 
 import UIKit
 
-class ListViewController: UIViewController {
-  
-    init(meta: [PhotoMeta]) {
+class ListCollectionViewController: UIViewController {
+    
+    init(meta: [InstaMeta]) {
         super.init(nibName: nil, bundle: nil)
         collectionView.frame = view.bounds
         self.meta = meta
@@ -27,16 +27,16 @@ class ListViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.backgroundColor = .white
         collectionView.alwaysBounceVertical = true
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(ListCollectionViewCell.self, forCellWithReuseIdentifier: ListCollectionViewCell.identifier)
         
         view.addSubview(collectionView)
     }
     
-    private var meta: [PhotoMeta] = []
+    private var meta: [InstaMeta] = []
     private var collectionView: UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
 }
 
-extension ListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ListCollectionViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     //FIXME: Add model
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -45,14 +45,18 @@ extension ListViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     //FIXME: Add custom cell
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.layer.cornerRadius = 10
-        cell.backgroundColor = .lightGray
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListCollectionViewCell.identifier, for: indexPath)
+        
+        if let cell = cell as? ListCollectionViewCell {
+            cell.layer.cornerRadius = 10
+            cell.backgroundColor = .lightGray
+        }
+        
         return cell
     }
 }
 
-extension ListViewController: UICollectionViewDelegateFlowLayout {
+extension ListCollectionViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.size.width - 20, height: view.frame.size.height / 3)

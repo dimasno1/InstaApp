@@ -9,7 +9,8 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    var authorized: Bool
+    
+    private (set) var authorized: Bool
     
     init(with view: MainView) {
         authorized = false
@@ -26,13 +27,33 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         setup()
         
-        if let controller = mainView.controller() as? AuthorizeViewController {
-            controller.delegate = self
-            addChild(controller, to: mainViewContainer)
+        let controller = mainView.controller()
+        addChild(controller, to: mainViewContainer)
+        
+        if let controller = controller as? AuthorizeViewController {
+            controller.delegate = self   
         }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(changeFrame(with:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeFrame(with:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        networkService.delegate = self
         view.addSubview(mainViewContainer)
         view.addSubview(searchBar)
+    }
+    
+    @objc private func changeFrame(with notification: NSNotification) {
+        guard let userInfo = notification.userInfo, let keyboardBounds = userInfo["UIKeyboardFrameEndUserInfoKey"] as? CGRect else {
+            return
+        }
+        let height = keyboardBounds.height
+
+        if notification.name == .UIKeyboardWillShow {
+            mainViewContainer.frame.origin.y = searchBar.frame.size.height
+            mainViewContainer.frame.origin.y -= height
+        } else {
+            mainViewContainer.frame.origin.y += height
+        }
     }
     
     private func addChild(_ controller: UIViewController, to container: UIView) {
@@ -65,10 +86,10 @@ class MainViewController: UIViewController {
         case initial
         case authorize
         
-        func controller(meta: [PhotoMeta] = []) -> UIViewController {
+        func controller(meta: [InstaMeta] = []) -> UIViewController {
             switch self {
             case .map: return MapViewController(meta: meta)
-            case .list: return ListViewController(meta: meta)
+            case .list: return ListCollectionViewController(meta: meta)
             case .initial: return InitialViewController()
             case .authorize: return AuthorizeViewController()
             }
@@ -79,9 +100,14 @@ class MainViewController: UIViewController {
     private var mainView: MainView
     private var searchBar = UISearchBar()
     private let mainViewContainer = UIView()
+    private let networkService = NetworkService()
 }
 
 extension MainViewController: UISearchBarDelegate {
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if authorized {
@@ -89,27 +115,17 @@ extension MainViewController: UISearchBarDelegate {
             
             let searchWord = searchBar.text ?? ""
             let endpointParameters = [
-                Endpoint.Parameter.max_tag_id: "123124",
-                Endpoint.Parameter.min_tag_id: "123123",
                 Endpoint.Parameter.count: "20"
             ]
             
-            let endpoint = Endpoint(purpose: .tags, parameters: endpointParameters)
+            let endpoint = Endpoint(purpose: .users, parameters: endpointParameters)
             let endpointConstructor = EndpointConstructor(endpoint: endpoint)
             
-            guard let url = endpointConstructor.makeURL(with: token, searchWord: searchWord) else {
-                return
-            }
-            
-            let networkService = NetworkService()
-            
-            networkService.makeRequest(for: url, endpoint: endpoint)
-            
+            guard let url = endpointConstructor.makeURL(with: token, searchWord: searchWord) else { return }
+            print(url)
+            networkService.makeRequest(for: url)
         } else {
-            guard let controller = self.childViewControllers.first as? InitialViewController else {
-                return
-            }
-            
+            guard let controller = self.childViewControllers.first as? InitialViewController else { return }
             controller.changeState(to: .error)
         }
         
@@ -122,7 +138,6 @@ extension MainViewController: UISearchBarDelegate {
 }
 
 extension MainViewController: AuthorizeViewControllerDelegate {
-    
     func didReceive(_ authorizeViewController: AuthorizeViewController, token: Token) {
         authorized = true
         self.token = token
@@ -130,12 +145,24 @@ extension MainViewController: AuthorizeViewControllerDelegate {
     }
 }
 
-extension UIViewController {
-    
-    func deleteFromParent() {
-        willMove(toParentViewController: nil)
-        view.removeFromSuperview()
-        removeFromParentViewController()
-        didMove(toParentViewController: nil)
+extension MainViewController: NetworkServiceDelegate {
+    func didReceive(_ networkService: NetworkService, data: Data?, with error: Error?) {
+        guard let data = data else {
+            return
+        }
+        
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        
+        guard let instaResponce = try? decoder.decode(InstaResponce.self, from: data), let instaData = instaResponce.data else {
+            return
+        }
+        
+        instaData.forEach { meta in
+            switch meta {
+            case .photoMeta(let photoMeta): print(photoMeta.caption)
+            case .videoMeta(let videoMeta): print(videoMeta.type, videoMeta.caption, videoMeta.videos)
+            }
+        } 
     }
 }

@@ -8,19 +8,22 @@
 
 import Foundation
 
-protocol NetworkServiceDelegate: AnyObject {
-    func didReceive(_ networkService: NetworkService, data: Data, with error: Error)
+enum NetworkServiceError: Error {
+    case invalidResponce
 }
 
+protocol NetworkServiceDelegate: AnyObject {
+    func didReceive(_ networkService: NetworkService, data: Data?, with error: Error?)
+}
 
 class NetworkService: NSObject {
     
     weak var delegate: NetworkServiceDelegate?
- 
-    func makeRequest(for url: URL, endpoint: Endpoint) {
-        
+    
+    func makeRequest(for url: URL) {
         session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
         let task = session.dataTask(with: url)
+        
         task.resume()
     }
     
@@ -30,10 +33,20 @@ class NetworkService: NSObject {
 extension NetworkService: URLSessionDelegate, URLSessionDataDelegate {
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-        <#code#>
+        self.delegate?.didReceive(self, data: data, with: nil)
+        session.finishTasksAndInvalidate()
     }
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
-        <#code#>
+        
+        if let response = response as? HTTPURLResponse {
+            let statusCode = response.statusCode
+            if statusCode != 200 {
+                self.delegate?.didReceive(self, data: nil, with: NetworkServiceError.invalidResponce)
+                completionHandler(.cancel)
+            } else {
+                completionHandler(.allow)
+            }
+        }
     }
 }

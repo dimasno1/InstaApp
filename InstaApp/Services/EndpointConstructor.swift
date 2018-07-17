@@ -21,11 +21,12 @@ class EndpointConstructor {
         
         urlComponents.scheme = Constant.URLComponent.scheme
         urlComponents.host = Constant.URLComponent.host
+        urlComponents.path = Constant.URLComponent.path
         
         switch endpoint.purpose {
-        case .users: urlComponents.path = Constant.URLComponent.usersPath + Constant.URLComponent.recentMediaPath + "/"
-        case .comments: urlComponents.path = Constant.URLComponent.commentsPath + searchWord + Constant.URLComponent.commentsParameter
-        case .tags: urlComponents.path = Constant.URLComponent.tagsPath + searchWord + Constant.URLComponent.recentMediaPath
+        case .users: urlComponents.path.append(Constant.URLComponent.usersPath + Constant.URLComponent.recentMediaPath + "/")
+        case .comments: urlComponents.path.append(Constant.URLComponent.commentsPath + searchWord + Constant.URLComponent.commentsParameter)
+        case .tags: urlComponents.path.append(Constant.URLComponent.tagsPath + searchWord + Constant.URLComponent.recentMediaPath)
         }
         
         for parameter in parameters {
@@ -47,12 +48,13 @@ extension EndpointConstructor {
     struct Constant {
         struct URLComponent {
             static let scheme = "https"
-            static let host = "api.instagram.com/v1"
-            static let tagsPath = "/tags/"
-            static let usersPath = "/users/self/"
-            static let commentsPath = "/media/"
+            static let host = "api.instagram.com"
+            static let path = "/v1/"
+            static let tagsPath = "tags/"
+            static let usersPath = "users/self/"
+            static let commentsPath = "media/"
             static let commentsParameter = "/comments"
-            static let recentMediaPath = "/media/recent"
+            static let recentMediaPath = "media/recent"
         }
     }
 }

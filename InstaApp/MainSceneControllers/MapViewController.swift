@@ -11,7 +11,7 @@ import MapKit
 
 class MapViewController: UIViewController {
     
-    init(meta: [PhotoMeta]) {
+    init(meta: [InstaMeta]) {
         super.init(nibName: nil, bundle: nil)
         self.photosMeta = meta
     }
@@ -23,10 +23,22 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.frame = view.bounds
+        mapView.showsCompass = true
+        mapView.showsScale = true
         
         view.addSubview(mapView)
     }
 
-    private var photosMeta: [PhotoMeta] = []
+    private var photosMeta: [InstaMeta] = []
     private let mapView = MKMapView()
+}
+
+extension UIViewController {
+    
+    func deleteFromParent() {
+        willMove(toParentViewController: nil)
+        view.removeFromSuperview()
+        removeFromParentViewController()
+        didMove(toParentViewController: nil)
+    }
 }

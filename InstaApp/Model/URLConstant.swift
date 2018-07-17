@@ -21,7 +21,7 @@ struct URLConstant {
     struct Value {
         static let ID = "abf98819234846b0b8640db839bb86d7"
         static let redirectURL = "http://com.dimasno1.InstaApp"
-        static let recponceType = "token&scope=public_content"
+        static let recponceType = "token&scope=basic+public_content+comments+relationships+likes+follower_list"
     }
     
 }
