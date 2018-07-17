@@ -26,6 +26,8 @@ class ListCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
     }
     
-    private let imageView: UIImageView
-    private let 
+    //FIXME: setup views
+//    private var imageView: UIImageView
+//    private var captionTextView: UITextView
+//    private var tagsTextView: UITextView
 }

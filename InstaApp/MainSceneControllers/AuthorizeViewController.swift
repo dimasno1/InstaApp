@@ -36,7 +36,7 @@ class AuthorizeViewController: UIViewController {
         webView.navigationDelegate = self
     }
     
-    func authorize() {
+    private func authorize() {
         let urlString = String(format: "%@?%@=%@&%@=%@&%@=%@", arguments: [URLConstant.authorizeURL, URLConstant.Key.ID, URLConstant.Value.ID, URLConstant.Key.redirectURL, URLConstant.Value.redirectURL, URLConstant.Key.responceType, URLConstant.Value.recponceType])
         
         guard let authURL = URL(string: urlString) else {

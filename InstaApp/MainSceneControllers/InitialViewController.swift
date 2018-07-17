@@ -9,10 +9,7 @@
 import UIKit
 
 class InitialViewController: UIViewController {
-    
-    var isAuthorized: Bool = false
-    var state: State
-    
+
     init(state: State = .succes) {
         self.state = state
         super.init(nibName: nil, bundle: nil)
@@ -30,11 +27,6 @@ class InitialViewController: UIViewController {
         view.addSubview(stateTextLabel)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
-  
     func changeState(to: State) {
         self.state = to
         setup()
@@ -58,5 +50,6 @@ class InitialViewController: UIViewController {
         }
     }
     
+    private var state: State
     private let stateTextLabel = UILabel()
 }

@@ -9,7 +9,8 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    var authorized: Bool
+    
+    private (set) var authorized: Bool
     
     init(with view: MainView) {
         authorized = false
@@ -26,9 +27,11 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         setup()
         
-        if let controller = mainView.controller() as? AuthorizeViewController {
-            controller.delegate = self
-            addChild(controller, to: mainViewContainer)
+        let controller = mainView.controller()
+        addChild(controller, to: mainViewContainer)
+        
+        if let controller = controller as? AuthorizeViewController {
+            controller.delegate = self   
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(changeFrame(with:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -135,7 +138,6 @@ extension MainViewController: UISearchBarDelegate {
 }
 
 extension MainViewController: AuthorizeViewControllerDelegate {
-    
     func didReceive(_ authorizeViewController: AuthorizeViewController, token: Token) {
         authorized = true
         self.token = token
@@ -144,7 +146,6 @@ extension MainViewController: AuthorizeViewControllerDelegate {
 }
 
 extension MainViewController: NetworkServiceDelegate {
-    
     func didReceive(_ networkService: NetworkService, data: Data?, with error: Error?) {
         guard let data = data else {
             return
@@ -159,7 +160,7 @@ extension MainViewController: NetworkServiceDelegate {
         
         instaData.forEach { meta in
             switch meta {
-            case .photoMeta(let photoMeta): break
+            case .photoMeta(let photoMeta): print(photoMeta.caption)
             case .videoMeta(let videoMeta): print(videoMeta.type, videoMeta.caption, videoMeta.videos)
             }
         } 
