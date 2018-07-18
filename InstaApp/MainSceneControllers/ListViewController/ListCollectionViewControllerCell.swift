@@ -16,6 +16,9 @@ class ListCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        setup()
+        addSubview(imageView)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -24,10 +27,26 @@ class ListCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        imageView.image = nil
+        captionTextView.text = nil
+        tagsTextView.text = nil
     }
     
-    //FIXME: setup views
-//    private var imageView: UIImageView
-//    private var captionTextView: UITextView
-//    private var tagsTextView: UITextView
+    func setupCell(image: UIImage, caption: InstaMeta.Caption, tags: [String]) {
+        self.imageView.image = image
+        self.captionTextView.text = caption.text
+        self.tagsTextView.text = "#\(tags.map { $0 }.joined())"
+    }
+    
+    private func setup() {
+        clipsToBounds = true
+        
+        imageView.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: bounds.size.width, height: bounds.size.height * 3 / 4))
+        imageView.backgroundColor = .blue
+        imageView.contentMode = .scaleAspectFill
+    }
+    
+    private var imageView = UIImageView()
+    private var captionTextView = UITextView()
+    private var tagsTextView = UITextView()
 }

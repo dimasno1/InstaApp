@@ -66,7 +66,7 @@ class MainViewController: UIViewController {
     private func changeMainView(to: MainView) {
         childViewControllers.last?.deleteFromParent()
         mainView = to
-        addChild(mainView.controller(), to: mainViewContainer)
+        addChild(mainView.controller(meta: storage), to: mainViewContainer)
     }
     
     private func setup() {
@@ -101,6 +101,7 @@ class MainViewController: UIViewController {
     private var searchBar = UISearchBar()
     private let mainViewContainer = UIView()
     private let networkService = NetworkService()
+    private var storage: [InstaMeta] = []
 }
 
 extension MainViewController: UISearchBarDelegate {
@@ -160,9 +161,10 @@ extension MainViewController: NetworkServiceDelegate {
         
         instaData.forEach { meta in
             switch meta {
-            case .photoMeta(let photoMeta): print(photoMeta.caption)
-            case .videoMeta(let videoMeta): print(videoMeta.type, videoMeta.caption, videoMeta.videos)
+            case .photoMeta(let photoMeta): storage.append(photoMeta)
+            case .videoMeta(let videoMeta): print(videoMeta.type)
             }
+            changeMainView(to: .list)
         } 
     }
 }

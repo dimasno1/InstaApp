@@ -25,6 +25,7 @@ class InitialViewController: UIViewController {
         
         view.backgroundColor = .white
         view.addSubview(stateTextLabel)
+        state == .succes ? view.addSubview(repeatButton) : nil
     }
     
     func changeState(to: State) {
@@ -36,6 +37,11 @@ class InitialViewController: UIViewController {
         stateTextLabel.text = state.description
         stateTextLabel.sizeToFit()
         stateTextLabel.center = view.center
+        
+        repeatButton.setTitle("Repeat", for: .normal)
+        repeatButton.sizeToFit()
+        repeatButton.center.x = view.center.x
+        repeatButton.center.y = view.frame.maxY - 140
     }
    
     enum State {
@@ -44,12 +50,13 @@ class InitialViewController: UIViewController {
         
         var description: String {
             switch self {
-            case .error: return "Sorry, you're not authorized"
+            case .error: return "Sorry, you're not authorized. Try again"
             case .succes: return "Try to search for photos"
             }
         }
     }
     
     private var state: State
+    private let repeatButton = UIButton(type: .system)
     private let stateTextLabel = UILabel()
 }

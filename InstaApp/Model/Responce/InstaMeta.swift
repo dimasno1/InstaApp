@@ -6,7 +6,7 @@
 //  Copyright © 2018 dimasno1. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class InstaMeta: Decodable {
     let id: String
@@ -24,6 +24,7 @@ class InstaMeta: Decodable {
     let location: Location?
     let attribution: String?
     let usersInPhoto: [User]?
+    var photo: UIImage?
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -43,6 +44,13 @@ class InstaMeta: Decodable {
         location = try? container.decode(Location.self, forKey: .location)
         attribution = try? container.decode(String.self, forKey: .attribution)
         usersInPhoto = try? container.decode([User].self, forKey: .usersInPhoto)
+        
+        if let imageStringURL = images["standardResolution"]?.url {
+            guard let imageURL = URL(string: imageStringURL) else { return }
+            let imageData = try Data(contentsOf: imageURL)
+            let image = UIImage(data: imageData)
+            photo = image
+        }
     }
     
     enum CodingKeys: String, CodingKey {

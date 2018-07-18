@@ -28,7 +28,7 @@ class MapViewController: UIViewController {
         
         view.addSubview(mapView)
     }
-
+    
     private var photosMeta: [InstaMeta] = []
     private let mapView = MKMapView()
 }
