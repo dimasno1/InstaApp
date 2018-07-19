@@ -22,23 +22,19 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setup()
+        
+        view.addSubview(mapView)
+    }
+    
+    private func setup() {
         mapView.frame = view.bounds
         mapView.showsCompass = true
         mapView.showsScale = true
         
-        view.addSubview(mapView)
+        navigationItem.title = "Photos on map"
     }
-
+    
     private var photosMeta: [InstaMeta] = []
     private let mapView = MKMapView()
-}
-
-extension UIViewController {
-    
-    func deleteFromParent() {
-        willMove(toParentViewController: nil)
-        view.removeFromSuperview()
-        removeFromParentViewController()
-        didMove(toParentViewController: nil)
-    }
 }

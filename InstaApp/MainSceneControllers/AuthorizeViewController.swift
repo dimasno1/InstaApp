@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 
 protocol AuthorizeViewControllerDelegate: AnyObject {
-    func didReceive(_ authorizeViewController: AuthorizeViewController, token: Token)
+    func didReceive(_ authorizeViewController: AuthorizeViewController, token: Token?)
 }
 
 typealias Token = String
@@ -37,16 +37,18 @@ class AuthorizeViewController: UIViewController {
     }
     
     private func authorize() {
+        var component = NSURLComponents(string: URLConstant.authorizeURL)!
         let urlString = String(format: "%@?%@=%@&%@=%@&%@=%@", arguments: [URLConstant.authorizeURL, URLConstant.Key.ID, URLConstant.Value.ID, URLConstant.Key.redirectURL, URLConstant.Value.redirectURL, URLConstant.Key.responceType, URLConstant.Value.recponceType])
+        self.urlString = urlString
         
         guard let authURL = URL(string: urlString) else {
             return
         }
-        
         let urlRequest = URLRequest.init(url: authURL)
         webView.load(urlRequest)
     }
     
+    private var urlString: String = ""
     private let webView = WKWebView()
 }
 
@@ -57,7 +59,7 @@ extension AuthorizeViewController: WKNavigationDelegate {
         guard let stringNavigationURL = navigationAction.request.url?.absoluteString else {
             return
         }
-
+        
         let successPhrase = "#access_token="
         if stringNavigationURL.contains(successPhrase) {
             guard let range = stringNavigationURL.range(of: successPhrase) else {
