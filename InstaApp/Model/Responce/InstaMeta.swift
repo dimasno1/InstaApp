@@ -16,7 +16,7 @@ class InstaMeta: Decodable {
     let caption: Caption?
     let userHasLiked: Bool
     let likes: [String: Int]
-    let tags: [String?]
+    let tags: [String]
     let filter: String
     let comments: [String: Int]
     let type: String

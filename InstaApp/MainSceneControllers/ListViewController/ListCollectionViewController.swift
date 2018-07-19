@@ -11,8 +11,8 @@ import UIKit
 class ListCollectionViewController: UIViewController {
     
     init(meta: [InstaMeta]) {
+        collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
         super.init(nibName: nil, bundle: nil)
-        collectionView.frame = view.bounds
         self.meta = meta
     }
     
@@ -22,34 +22,42 @@ class ListCollectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        view.addSubview(collectionView)
+        setup()
+    }
+    
+    private func setup() {
+        navigationItem.title = "List of photos"
         
+        collectionView.frame = view.bounds
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .white
         collectionView.alwaysBounceVertical = true
         collectionView.register(ListCollectionViewCell.self, forCellWithReuseIdentifier: ListCollectionViewCell.identifier)
-        
-        view.addSubview(collectionView)
     }
     
-    private var meta: [InstaMeta] = []
-    private var collectionView: UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
+    private var meta: [InstaMeta] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    private var collectionView: UICollectionView
 }
 
 extension ListCollectionViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
-    //FIXME: Add model
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return meta.count
     }
     
-    //FIXME: Add custom cell
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListCollectionViewCell.identifier, for: indexPath)
+        let photoMeta = meta[indexPath.row]
         
         if let cell = cell as? ListCollectionViewCell {
-            cell.layer.cornerRadius = 10
-            cell.backgroundColor = .lightGray
+            cell.setup(with: photoMeta)
         }
         
         return cell
@@ -59,10 +67,28 @@ extension ListCollectionViewController: UICollectionViewDelegate, UICollectionVi
 extension ListCollectionViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.size.width - 20, height: view.frame.size.height / 2)
+        return CGSize(width: view.frame.size.width, height: view.frame.size.height / 2)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        return UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
+    }
+}
+
+extension ListCollectionViewCell {
+    func setup(with meta: InstaMeta) {
+        if let photo = meta.photo {
+            setup(image: photo, captionText: meta.cellCaption, tags: meta.cellTags)
+        }
+    }
+}
+
+extension InstaMeta {
+    var cellCaption: String {
+        return caption?.text ?? "No caption"
+    }
+    
+    var cellTags: [String] {
+        return tags.isEmpty ? ["no tags provided"] : tags
     }
 }

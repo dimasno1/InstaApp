@@ -19,6 +19,8 @@ class ListCollectionViewCell: UICollectionViewCell {
         
         setup()
         addSubview(imageView)
+        imageView.addSubview(tagsView)
+        tagsView.addSubview(tagsTextView)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -32,20 +34,35 @@ class ListCollectionViewCell: UICollectionViewCell {
         tagsTextView.text = nil
     }
     
-    func setupCell(image: UIImage, caption: InstaMeta.Caption, tags: [String]) {
+    func setup(image: UIImage, captionText: String, tags: [String]) {
         self.imageView.image = image
-        self.captionTextView.text = caption.text
-        self.tagsTextView.text = "#\(tags.map { $0 }.joined())"
+        self.captionTextView.text = captionText
+        self.tagsTextView.text = "# \(tags.map { $0 }.joined(separator: ", "))"
     }
     
     private func setup() {
         clipsToBounds = true
         
-        imageView.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: bounds.size.width, height: bounds.size.height * 3 / 4))
-        imageView.backgroundColor = .blue
+        imageView.frame = bounds
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        
+        tagsView.frame.size = CGSize(width: bounds.width, height: bounds.height / 4)
+        tagsView.frame.origin = CGPoint(x: 0, y: bounds.maxY - tagsView.frame.size.height)
+        tagsView.layer.addSublayer(gradientLayer)
+        
+        tagsTextView.frame.origin = tagsView.bounds.origin.applying(CGAffineTransform(translationX: tagsView.frame.size.width / 10, y: tagsView.frame.size.height / 5))
+        tagsTextView.frame.size = tagsView.frame.size.applying(CGAffineTransform(scaleX: 0.75, y: 0.8))
+        tagsTextView.backgroundColor = .clear
+        tagsTextView.font = billabongFont
+        
+        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.white.cgColor]
+        gradientLayer.frame = tagsView.bounds
+        gradientLayer.locations = [0.0, 0.2]
     }
     
+    private let gradientLayer = CAGradientLayer()
+    private let tagsView = UIView()
     private var imageView = UIImageView()
     private var captionTextView = UITextView()
     private var tagsTextView = UITextView()
