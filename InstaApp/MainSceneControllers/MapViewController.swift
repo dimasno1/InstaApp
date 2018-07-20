@@ -13,6 +13,7 @@ class MapViewController: UIViewController {
     
     init(meta: [InstaMeta]) {
         super.init(nibName: nil, bundle: nil)
+        
         self.photosMeta = meta
     }
     
@@ -24,6 +25,7 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         setup()
         
+        
         view.addSubview(mapView)
     }
     
@@ -31,10 +33,14 @@ class MapViewController: UIViewController {
         mapView.frame = view.bounds
         mapView.showsCompass = true
         mapView.showsScale = true
-        
+       
         navigationItem.title = "Photos on map"
     }
     
-    private var photosMeta: [InstaMeta] = []
+    private var locationCoordinates: [CLLocationCoordinate2D] {
+        return photosMeta.compactMap { $0.locationCoordinate }
+    }
+    
     private let mapView = MKMapView()
+    private var photosMeta: [InstaMeta] = []
 }

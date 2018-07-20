@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class InstaMeta: Decodable {
     let id: String
@@ -24,7 +25,9 @@ class InstaMeta: Decodable {
     let location: Location?
     let attribution: String?
     let usersInPhoto: [User]?
-    var photo: UIImage?
+    let photo: UIImage?
+    let locationCoordinate: CLLocationCoordinate2D?
+    
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -45,11 +48,18 @@ class InstaMeta: Decodable {
         attribution = try? container.decode(String.self, forKey: .attribution)
         usersInPhoto = try? container.decode([User].self, forKey: .usersInPhoto)
         
-        if let imageStringURL = images["standardResolution"]?.url {
-            guard let imageURL = URL(string: imageStringURL) else { return }
+        if let location = location {
+            locationCoordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+        } else {
+            locationCoordinate = nil
+        }
+        
+        if let imageStringURL = images["standardResolution"]?.url, let imageURL = URL(string: imageStringURL) {
             let imageData = try Data(contentsOf: imageURL)
             let image = UIImage(data: imageData)
             photo = image
+        } else {
+            photo = nil
         }
     }
     
@@ -81,7 +91,7 @@ extension InstaMeta {
     
     struct Location: Codable {
         let latitude: Double
-        let id: String
+        let id: Int
         let longitude: Double
         let name: String
     }
