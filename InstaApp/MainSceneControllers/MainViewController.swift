@@ -40,19 +40,16 @@ class MainViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-         definesPresentationContext = true
+        definesPresentationContext = true
         
         scopeBar = UISegmentedControl(items: ["Map", "List"])
+        scopeBar?.addObserver(self, forKeyPath: "selectedSegmentIndex", options: [.new, .old, .initial], context: nil)
         
-        searchController = UISearchController(searchResultsController: nil)
         networkService = NetworkService()
         
-        guard let scopeBar = scopeBar, let searchController = searchController, let networkService = networkService else {
+        guard let scopeBar = scopeBar, let networkService = networkService else {
             return
         }
-        
-        searchController.searchBar.delegate = self
-        searchController.hidesNavigationBarDuringPresentation = false
         
         networkService.delegate = self
         
@@ -66,10 +63,32 @@ class MainViewController: UIViewController {
         scopeBar.frame.size.width = UIScreen.main.bounds.width / 2
         
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Searching"
+        navigationController?.navigationBar.tintColor = .pink
+        navigationItem.title = "Search"
         navigationItem.largeTitleDisplayMode = .always
-        navigationItem.searchController = searchController
         navigationItem.titleView = scopeBar
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "selectedSegmentIndex", let change = change, let old = change[.oldKey] as? Int, let newValue = change[.newKey] as? Int, old != newValue, old != -1 {
+            buffer = searchController.searchBar.text ?? ""
+            
+            searchController.dismiss(animated: true, completion: nil)
+            let searchResultsController = newValue == 0 ? MapViewController(meta: []) : ListCollectionViewController(meta: [])
+
+            setupSearcController(with: searchResultsController)
+        }
+    }
+    
+    func setupSearcController(with resultController: UIViewController) {
+        searchController = UISearchController(searchResultsController: resultController)
+        searchController.searchBar.delegate = self
+        searchController.searchBar.tintColor = .pink
+        searchController.searchBar.text = buffer
+        searchController.hidesNavigationBarDuringPresentation = false
+        
+        navigationItem.searchController = searchController
+        present(searchController, animated: true, completion: nil)
     }
     
     enum Purpose {
@@ -81,7 +100,7 @@ class MainViewController: UIViewController {
             switch self {
             case .authorization: return AuthorizeViewController()
             case .initial: return InitialViewController(token: token)
-            case .test: return UINavigationController(rootViewController: MainViewController(purpose: .initial, token: "token"))
+            case .test: return UINavigationController(rootViewController: MainViewController(purpose: .initial, token: "TEST TOKEN"))
             }
         }
     }
@@ -90,12 +109,13 @@ class MainViewController: UIViewController {
         return token != nil
     }
     
+    private var buffer: String = ""
     private (set) var token: Token?
     private let purpose: Purpose
     private let mainViewContainer = UIView()
     private var networkService: NetworkService?
     private var scopeBar: UISegmentedControl?
-    private var searchController: UISearchController?
+    private var searchController = UISearchController(searchResultsController: nil)
 }
 
 extension MainViewController: AuthorizeViewControllerDelegate {
@@ -109,7 +129,7 @@ extension MainViewController: AuthorizeViewControllerDelegate {
 
 
 extension MainViewController: UISearchBarDelegate {
-   
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
