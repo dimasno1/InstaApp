@@ -5,11 +5,11 @@
 //  Created by Dimasno1 on 7/16/18.
 //  Copyright © 2018 dimasno1. All rights reserved.
 //
-
 import UIKit
 import MapKit
 
-class InstaMeta: Decodable {
+class InstaMeta: NSObject, Decodable {
+    
     let id: String
     let user: User
     let images: [String: Image]
@@ -26,8 +26,14 @@ class InstaMeta: Decodable {
     let attribution: String?
     let usersInPhoto: [User]?
     let photo: UIImage?
-    let locationCoordinate: CLLocationCoordinate2D?
     
+    var mapAnnotation: MetaMapAnnotation? {
+        guard let location = location, let photo = photo else {
+            return nil
+        }
+        
+        return MetaMapAnnotation(location: location, createdTime: createdTime, photo: photo)
+    }
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -47,12 +53,6 @@ class InstaMeta: Decodable {
         location = try? container.decode(Location.self, forKey: .location)
         attribution = try? container.decode(String.self, forKey: .attribution)
         usersInPhoto = try? container.decode([User].self, forKey: .usersInPhoto)
-        
-        if let location = location {
-            locationCoordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-        } else {
-            locationCoordinate = nil
-        }
         
         if let imageStringURL = images["standardResolution"]?.url, let imageURL = URL(string: imageStringURL) {
             let imageData = try Data(contentsOf: imageURL)
@@ -89,7 +89,7 @@ extension InstaMeta {
         let from: User
     }
     
-    struct Location: Codable {
+    struct Location: Codable{
         let latitude: Double
         let id: Int
         let longitude: Double

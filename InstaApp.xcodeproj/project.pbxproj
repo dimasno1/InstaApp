@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		524F64C020F7ADED00999CC9 /* URLConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524F64BF20F7ADED00999CC9 /* URLConstant.swift */; };
+		526D7E142102349F005B1AAE /* MapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526D7E132102349F005B1AAE /* MapAnnotationView.swift */; };
+		526D7E16210234D3005B1AAE /* MetaMapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526D7E15210234D3005B1AAE /* MetaMapAnnotation.swift */; };
 		527BB32620FBBE6B007EA4E9 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527BB32520FBBE6B007EA4E9 /* Endpoint.swift */; };
 		527FFA2521007D7A00DD5FA4 /* mario_test.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 527FFA2421007D7A00DD5FA4 /* mario_test.jpeg */; };
 		527FFA27210091A100DD5FA4 /* Billabong.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 527FFA262100919A00DD5FA4 /* Billabong.ttf */; };
@@ -31,6 +33,8 @@
 
 /* Begin PBXFileReference section */
 		524F64BF20F7ADED00999CC9 /* URLConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConstant.swift; sourceTree = "<group>"; };
+		526D7E132102349F005B1AAE /* MapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationView.swift; sourceTree = "<group>"; };
+		526D7E15210234D3005B1AAE /* MetaMapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaMapAnnotation.swift; sourceTree = "<group>"; };
 		527BB32520FBBE6B007EA4E9 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		527FFA2421007D7A00DD5FA4 /* mario_test.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mario_test.jpeg; sourceTree = "<group>"; };
 		527FFA262100919A00DD5FA4 /* Billabong.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Billabong.ttf; sourceTree = "<group>"; };
@@ -84,6 +88,15 @@
 				925296C1113066D01FDAE1A2 /* Pods-InstaApp.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		526D7E17210235A7005B1AAE /* MapViewController */ = {
+			isa = PBXGroup;
+			children = (
+				52DFC9E720F7917B0003B671 /* MapViewController.swift */,
+				526D7E132102349F005B1AAE /* MapAnnotationView.swift */,
+			);
+			path = MapViewController;
 			sourceTree = "<group>";
 		};
 		52BB514620FC8E4000977418 /* Services */ = {
@@ -164,7 +177,7 @@
 				52DFC9E420F78E950003B671 /* MainViewController.swift */,
 				52AABF7920F89CDD0044AA00 /* AuthorizeViewController.swift */,
 				52DFC9EB20F792670003B671 /* InitialViewController.swift */,
-				52DFC9E720F7917B0003B671 /* MapViewController.swift */,
+				526D7E17210235A7005B1AAE /* MapViewController */,
 				52BB515820FD06E000977418 /* ListViewController */,
 			);
 			path = MainSceneControllers;
@@ -173,6 +186,7 @@
 		52DFC9F020F79BBB0003B671 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				526D7E15210234D3005B1AAE /* MetaMapAnnotation.swift */,
 				527BB32520FBBE6B007EA4E9 /* Endpoint.swift */,
 				524F64BF20F7ADED00999CC9 /* URLConstant.swift */,
 				52BB515520FCF7EE00977418 /* Responce */,
@@ -294,7 +308,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				526D7E142102349F005B1AAE /* MapAnnotationView.swift in Sources */,
 				52BB514820FC948600977418 /* NetworkService.swift in Sources */,
+				526D7E16210234D3005B1AAE /* MetaMapAnnotation.swift in Sources */,
 				52DFC9EC20F792670003B671 /* InitialViewController.swift in Sources */,
 				52BB515420FCE78100977418 /* InstaVideoMeta.swift in Sources */,
 				527BB32620FBBE6B007EA4E9 /* Endpoint.swift in Sources */,

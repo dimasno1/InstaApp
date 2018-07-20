@@ -35,17 +35,14 @@ class InitialViewController: UIViewController {
     func changeState(to: State) {
         self.state = to
         stateTextLabel.text = state.description
-        UIView.animate(withDuration: 1,
-                       delay: 0,
-                       options: .curveEaseInOut,
-                       animations: { self.stateTextLabel.frame.size.applying(CGAffineTransform(scaleX: 3, y: 3)) },
-                       completion: nil)
     }
     
     private func setup() {
+        let width = view.bounds.size.width / 3
+        
         logoImageView.image = UIImage(named: "logo.png")
         logoImageView.center = view.center
-        logoImageView.bounds.size = CGSize(width: 300, height: 300)
+        logoImageView.bounds.size = CGSize(width: width, height: width)
         
         stateTextLabel.text = state.description
         stateTextLabel.font = billabongFont
