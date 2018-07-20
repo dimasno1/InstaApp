@@ -165,11 +165,13 @@ extension InitialViewController: NetworkServiceDelegate {
             }
         }
         
+        let geoTagMeta = collectedMeta.compactMap { $0.location == nil ? nil : $0 }
+        
         var controllerToPush = UIViewController()
         
         DispatchQueue.main.async { [weak self] in
             switch self?.scopeBar.selectedSegmentIndex {
-            case 0: controllerToPush = MapViewController(meta: collectedMeta)
+            case 0: controllerToPush = MapViewController(meta: geoTagMeta)
             case 1: controllerToPush = ListCollectionViewController(meta: collectedMeta)
             default: break
             }

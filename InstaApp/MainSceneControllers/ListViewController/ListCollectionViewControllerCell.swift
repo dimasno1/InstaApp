@@ -49,7 +49,8 @@ class ListCollectionViewCell: UICollectionViewCell {
         
         tagsView.frame.size = CGSize(width: bounds.width, height: bounds.height / 4)
         tagsView.frame.origin = CGPoint(x: 0, y: bounds.maxY - tagsView.frame.size.height)
-        tagsView.layer.addSublayer(gradientLayer)
+        tagsView.backgroundColor = .white
+//        tagsView.layer.addSublayer(gradientLayer)
         
         tagsTextView.frame.origin = tagsView.bounds.origin.applying(CGAffineTransform(translationX: tagsView.frame.size.width / 10, y: tagsView.frame.size.height / 5))
         tagsTextView.frame.size = tagsView.frame.size.applying(CGAffineTransform(scaleX: 0.75, y: 0.8))
