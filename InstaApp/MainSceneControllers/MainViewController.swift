@@ -43,7 +43,7 @@ class MainViewController: UIViewController {
         definesPresentationContext = true
         
         scopeBar = UISegmentedControl(items: ["Map", "List"])
-        scopeBar?.addObserver(self, forKeyPath: "selectedSegmentIndex", options: [.new, .old, .initial], context: nil)
+        scopeBar?.addObserver(self, forKeyPath: "selectedSegmentIndex", options: [.new, .old], context: nil)
         
         networkService = NetworkService()
         
@@ -88,6 +88,7 @@ class MainViewController: UIViewController {
         searchController.hidesNavigationBarDuringPresentation = false
         
         navigationItem.searchController = searchController
+
         present(searchController, animated: true, completion: nil)
     }
     
@@ -100,7 +101,7 @@ class MainViewController: UIViewController {
             switch self {
             case .authorization: return AuthorizeViewController()
             case .initial: return InitialViewController(token: token)
-            case .test: return UINavigationController(rootViewController: MainViewController(purpose: .initial, token: "TEST TOKEN"))
+            case .test: return UINavigationController(rootViewController: MainViewController(purpose: .initial, token: "token"))
             }
         }
     }
@@ -186,4 +187,8 @@ extension MainViewController: NetworkServiceDelegate {
             self?.navigationController?.pushViewController(controllerToPush, animated: true)
         }
     }
+}
+
+extension MainViewController: UISearchControllerDelegate {
+    
 }
