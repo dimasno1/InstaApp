@@ -37,7 +37,6 @@ class AuthorizeViewController: UIViewController {
     }
     
     private func authorize() {
-        var component = NSURLComponents(string: URLConstant.authorizeURL)!
         let urlString = String(format: "%@?%@=%@&%@=%@&%@=%@", arguments: [URLConstant.authorizeURL, URLConstant.Key.ID, URLConstant.Value.ID, URLConstant.Key.redirectURL, URLConstant.Value.redirectURL, URLConstant.Key.responceType, URLConstant.Value.recponceType])
         self.urlString = urlString
         

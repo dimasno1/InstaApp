@@ -8,7 +8,12 @@
 
 import UIKit
 
-class ListCollectionViewController: UIViewController {
+class ListCollectionViewController: UIViewController, UpdateController {
+    
+    func updateResults(with meta: [InstaMeta]) {
+        self.meta = meta
+        collectionView.reloadData()
+    }
     
     init(meta: [InstaMeta]) {
         collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())

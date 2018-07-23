@@ -55,11 +55,11 @@ class ListCollectionViewCell: UICollectionViewCell {
         tagsTextView.frame.origin = tagsView.bounds.origin.applying(CGAffineTransform(translationX: tagsView.frame.size.width / 10, y: tagsView.frame.size.height / 5))
         tagsTextView.frame.size = tagsView.frame.size.applying(CGAffineTransform(scaleX: 0.75, y: 0.8))
         tagsTextView.backgroundColor = .clear
-        tagsTextView.font = billabongFont
+        tagsTextView.font = UIFont.billabong
         
-        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.white.cgColor]
-        gradientLayer.frame = tagsView.bounds
-        gradientLayer.locations = [0.0, 0.2]
+//        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.white.cgColor]
+//        gradientLayer.frame = tagsView.bounds
+//        gradientLayer.locations = [0.0, 0.2]
     }
     
     private let gradientLayer = CAGradientLayer()
