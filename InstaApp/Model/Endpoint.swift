@@ -37,6 +37,7 @@ extension Endpoint {
         case client_id
         case redirect_uri
         case response_type
+        case scope
     }
     
 }

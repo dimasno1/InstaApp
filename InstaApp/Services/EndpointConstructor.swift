@@ -15,7 +15,7 @@ class EndpointConstructor {
         self.parameters = endpoint.parameters
     }
     
-    func makeURL(with token: Token, searchWord: String) -> URL? {
+    func makeURL(with token: Token = "", searchWord: String = "") -> URL? {
         var urlComponents = URLComponents()
         var urlQueryItems = [URLQueryItem(name: Endpoint.Parameter.access_token.rawValue, value: token)]
         

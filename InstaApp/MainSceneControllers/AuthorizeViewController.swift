@@ -40,11 +40,13 @@ class AuthorizeViewController: UIViewController {
         let authorizeParameters = [
             Endpoint.Parameter.client_id: AuthorizeConstant.ID,
             Endpoint.Parameter.redirect_uri: AuthorizeConstant.redirectURL,
-            Endpoint.Parameter.response_type: "token"
+            Endpoint.Parameter.response_type: AuthorizeConstant.responceType,
+            Endpoint.Parameter.scope: AuthorizeConstant.fullScope
         ]
+        
         let authorizeEndpoint = Endpoint(purpose: .authorize, parameters: authorizeParameters)
         let constructor = EndpointConstructor(endpoint: authorizeEndpoint)
-        guard let authURL = constructor.makeURL(with: "", searchWord: "") else {
+        guard let authURL = constructor.makeURL() else {
             return
         }
       

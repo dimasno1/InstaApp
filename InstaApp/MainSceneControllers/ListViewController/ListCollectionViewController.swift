@@ -8,12 +8,7 @@
 
 import UIKit
 
-class ListCollectionViewController: UIViewController, UpdateController {
-    
-    func updateResults(with meta: [InstaMeta]) {
-        self.meta = meta
-        collectionView.reloadData()
-    }
+class ListCollectionViewController: UIViewController {
     
     init(meta: [InstaMeta]) {
         collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -27,7 +22,7 @@ class ListCollectionViewController: UIViewController, UpdateController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.addSubview(collectionView)
         setup()
     }
@@ -95,5 +90,15 @@ extension InstaMeta {
     
     var cellTags: [String] {
         return tags.isEmpty ? ["no tags provided"] : tags
+    }
+}
+
+extension ListCollectionViewController: UpdateController {
+    func updateResults(with meta: [InstaMeta]) {
+        self.meta = meta
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.collectionView.reloadData()
+        }
     }
 }
