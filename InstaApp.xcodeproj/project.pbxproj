@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		524F64C020F7ADED00999CC9 /* URLConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524F64BF20F7ADED00999CC9 /* URLConstant.swift */; };
+		524F64C020F7ADED00999CC9 /* AuthorizeConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524F64BF20F7ADED00999CC9 /* AuthorizeConstant.swift */; };
 		526D7E142102349F005B1AAE /* MapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526D7E132102349F005B1AAE /* MapAnnotationView.swift */; };
 		526D7E16210234D3005B1AAE /* MetaMapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526D7E15210234D3005B1AAE /* MetaMapAnnotation.swift */; };
 		527BB32620FBBE6B007EA4E9 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527BB32520FBBE6B007EA4E9 /* Endpoint.swift */; };
@@ -32,7 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		524F64BF20F7ADED00999CC9 /* URLConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConstant.swift; sourceTree = "<group>"; };
+		524F64BF20F7ADED00999CC9 /* AuthorizeConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeConstant.swift; sourceTree = "<group>"; };
 		526D7E132102349F005B1AAE /* MapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationView.swift; sourceTree = "<group>"; };
 		526D7E15210234D3005B1AAE /* MetaMapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaMapAnnotation.swift; sourceTree = "<group>"; };
 		527BB32520FBBE6B007EA4E9 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
@@ -188,7 +188,7 @@
 			children = (
 				526D7E15210234D3005B1AAE /* MetaMapAnnotation.swift */,
 				527BB32520FBBE6B007EA4E9 /* Endpoint.swift */,
-				524F64BF20F7ADED00999CC9 /* URLConstant.swift */,
+				524F64BF20F7ADED00999CC9 /* AuthorizeConstant.swift */,
 				52BB515520FCF7EE00977418 /* Responce */,
 			);
 			path = Model;
@@ -320,7 +320,7 @@
 				52AABF7A20F89CDD0044AA00 /* AuthorizeViewController.swift in Sources */,
 				52DFC9E820F7917B0003B671 /* MapViewController.swift in Sources */,
 				52BB515220FCC29000977418 /* InstaResponce.swift in Sources */,
-				524F64C020F7ADED00999CC9 /* URLConstant.swift in Sources */,
+				524F64C020F7ADED00999CC9 /* AuthorizeConstant.swift in Sources */,
 				52DFC9EA20F791CB0003B671 /* ListCollectionViewController.swift in Sources */,
 				52DFC9E520F78E950003B671 /* MainViewController.swift in Sources */,
 				52BB514420FC831600977418 /* EndpointConstructor.swift in Sources */,

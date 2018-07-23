@@ -37,12 +37,17 @@ class AuthorizeViewController: UIViewController {
     }
     
     private func authorize() {
-        let urlString = String(format: "%@?%@=%@&%@=%@&%@=%@", arguments: [URLConstant.authorizeURL, URLConstant.Key.ID, URLConstant.Value.ID, URLConstant.Key.redirectURL, URLConstant.Value.redirectURL, URLConstant.Key.responceType, URLConstant.Value.recponceType])
-        self.urlString = urlString
-        
-        guard let authURL = URL(string: urlString) else {
+        let authorizeParameters = [
+            Endpoint.Parameter.client_id: AuthorizeConstant.ID,
+            Endpoint.Parameter.redirect_uri: AuthorizeConstant.redirectURL,
+            Endpoint.Parameter.response_type: "token"
+        ]
+        let authorizeEndpoint = Endpoint(purpose: .authorize, parameters: authorizeParameters)
+        let constructor = EndpointConstructor(endpoint: authorizeEndpoint)
+        guard let authURL = constructor.makeURL(with: "", searchWord: "") else {
             return
         }
+      
         let urlRequest = URLRequest.init(url: authURL)
         webView.load(urlRequest)
     }

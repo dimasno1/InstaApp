@@ -27,6 +27,8 @@ class EndpointConstructor {
         case .users: urlComponents.path.append(Constant.URLComponent.usersPath + Constant.URLComponent.recentMediaPath + "/")
         case .comments: urlComponents.path.append(Constant.URLComponent.commentsPath + searchWord + Constant.URLComponent.commentsParameter)
         case .tags: urlComponents.path.append(Constant.URLComponent.tagsPath + searchWord + Constant.URLComponent.recentMediaPath)
+        case .authorize: urlComponents.path = Constant.URLComponent.authorizePath
+            urlQueryItems = []
         }
         
         for parameter in parameters {
@@ -55,6 +57,7 @@ extension EndpointConstructor {
             static let commentsPath = "media/"
             static let commentsParameter = "/comments"
             static let recentMediaPath = "media/recent"
+            static let authorizePath = "/oauth/authorize/"
         }
     }
 }

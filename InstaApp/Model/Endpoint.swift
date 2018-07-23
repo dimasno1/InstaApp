@@ -24,6 +24,7 @@ extension Endpoint {
         case users
         case comments
         case tags
+        case authorize
     }
     
     enum Parameter: String {
@@ -33,6 +34,9 @@ extension Endpoint {
         case max_tag_id
         case min_tag_id
         case access_token
+        case client_id
+        case redirect_uri
+        case response_type
     }
     
 }
