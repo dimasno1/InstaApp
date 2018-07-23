@@ -89,7 +89,7 @@ extension InstaMeta {
         let from: User
     }
     
-    struct Location: Codable{
+    struct Location: Codable {
         let latitude: Double
         let id: Int
         let longitude: Double
