@@ -74,9 +74,9 @@ class MainViewController: UIViewController {
         if keyPath == "selectedSegmentIndex", let change = change, let old = change[.oldKey] as? Int, let newValue = change[.newKey] as? Int, old != newValue, old != -1 {
             buffer = searchController.searchBar.text ?? ""
             
-            searchController.dismiss(animated: false, completion: nil)
+            searchController.dismiss(animated: true, completion: nil)
             let searchResultsController = newValue == 0 ? MapViewController(meta: metaBuffer) : ListCollectionViewController(meta: metaBuffer)
-
+            
             setupSearcController(with: searchResultsController)
         }
     }
@@ -90,8 +90,8 @@ class MainViewController: UIViewController {
         searchController.hidesNavigationBarDuringPresentation = false
         
         navigationItem.searchController = searchController
-
-        present(searchController, animated: false, completion: nil)
+        
+        present(searchController, animated: true, completion: nil)
     }
     
     enum Purpose {
@@ -163,13 +163,13 @@ extension MainViewController: NetworkServiceDelegate {
         instaData.forEach { meta in
             switch meta {
             case .photoMeta(let photoMeta): collectedMeta.append(photoMeta)
-            case .videoMeta(let videoMeta): print(videoMeta.type)
+            case .videoMeta( _): break
             }
         }
         
         metaBuffer = collectedMeta
         let updateController = navigationItem.searchController?.searchResultsController as? UpdateController
-
+        
         DispatchQueue.main.async {
             updateController?.updateResults(with: collectedMeta)
         }

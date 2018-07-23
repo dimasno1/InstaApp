@@ -13,18 +13,8 @@ protocol UpdateController: AnyObject {
     func updateResults(with meta: [InstaMeta])
 }
 
-
-class MapViewController: UIViewController, UpdateController {
-    
-    func updateResults(with meta: [InstaMeta]) {
-        let geoTagMeta = meta.compactMap { $0.location == nil ? nil : $0 }
-        let new = geoTagMeta.compactMap { $0.mapAnnotation }
-        mapView.removeAnnotations(annotations)
-
-        self.annotations = new
-        mapView.addAnnotations(annotations)
-    }
-    
+class MapViewController: UIViewController {
+  
     init(meta: [InstaMeta]) {
         let geoTagMeta = meta.compactMap { $0.location == nil ? nil : $0 }
         self.annotations = geoTagMeta.compactMap { $0.mapAnnotation }
@@ -69,5 +59,24 @@ extension MapViewController: MKMapViewDelegate {
         }
         
         return view
+    }
+}
+
+extension MapViewController: UpdateController {
+
+    func updateResults(with meta: [InstaMeta]) {
+        let geoTagMeta = meta.compactMap { $0.location == nil ? nil : $0 }
+        let new = geoTagMeta.compactMap { $0.mapAnnotation }
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let annotations = self?.annotations else {
+                return
+            }
+            
+            self?.mapView.removeAnnotations(annotations)
+            self?.mapView.addAnnotations(annotations)
+        }
+        
+        self.annotations = new
     }
 }
