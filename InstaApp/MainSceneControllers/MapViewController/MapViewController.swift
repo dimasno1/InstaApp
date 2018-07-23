@@ -8,10 +8,26 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController {
+
+protocol UpdateController: AnyObject {
+    func updateResults(with meta: [InstaMeta])
+}
+
+
+class MapViewController: UIViewController, UpdateController {
+    
+    func updateResults(with meta: [InstaMeta]) {
+        let geoTagMeta = meta.compactMap { $0.location == nil ? nil : $0 }
+        let new = geoTagMeta.compactMap { $0.mapAnnotation }
+        mapView.removeAnnotations(annotations)
+
+        self.annotations = new
+        mapView.addAnnotations(annotations)
+    }
     
     init(meta: [InstaMeta]) {
-        self.annotations = meta.compactMap { $0.mapAnnotation }
+        let geoTagMeta = meta.compactMap { $0.location == nil ? nil : $0 }
+        self.annotations = geoTagMeta.compactMap { $0.mapAnnotation }
         
         super.init(nibName: nil, bundle: nil)
     }

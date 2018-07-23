@@ -57,9 +57,9 @@ class ListCollectionViewCell: UICollectionViewCell {
         tagsTextView.backgroundColor = .clear
         tagsTextView.font = UIFont.billabong
         
-        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.white.cgColor]
-        gradientLayer.frame = tagsView.bounds
-        gradientLayer.locations = [0.0, 0.2]
+//        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.white.cgColor]
+//        gradientLayer.frame = tagsView.bounds
+//        gradientLayer.locations = [0.0, 0.2]
     }
     
     private let gradientLayer = CAGradientLayer()

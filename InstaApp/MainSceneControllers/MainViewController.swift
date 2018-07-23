@@ -70,11 +70,12 @@ class MainViewController: UIViewController {
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
         if keyPath == "selectedSegmentIndex", let change = change, let old = change[.oldKey] as? Int, let newValue = change[.newKey] as? Int, old != newValue, old != -1 {
             buffer = searchController.searchBar.text ?? ""
             
-            searchController.dismiss(animated: true, completion: nil)
-            let searchResultsController = newValue == 0 ? MapViewController(meta: []) : ListCollectionViewController(meta: [])
+            searchController.dismiss(animated: false, completion: nil)
+            let searchResultsController = newValue == 0 ? MapViewController(meta: metaBuffer) : ListCollectionViewController(meta: metaBuffer)
 
             setupSearcController(with: searchResultsController)
         }
@@ -83,13 +84,14 @@ class MainViewController: UIViewController {
     func setupSearcController(with resultController: UIViewController) {
         searchController = UISearchController(searchResultsController: resultController)
         searchController.searchBar.delegate = self
+        searchController.searchResultsUpdater = self
         searchController.searchBar.tintColor = .pink
         searchController.searchBar.text = buffer
         searchController.hidesNavigationBarDuringPresentation = false
         
         navigationItem.searchController = searchController
 
-        present(searchController, animated: true, completion: nil)
+        present(searchController, animated: false, completion: nil)
     }
     
     enum Purpose {
@@ -114,6 +116,7 @@ class MainViewController: UIViewController {
     private (set) var token: Token?
     private let purpose: Purpose
     private let mainViewContainer = UIView()
+    private var metaBuffer = [InstaMeta]()
     private var networkService: NetworkService?
     private var scopeBar: UISegmentedControl?
     private var searchController = UISearchController(searchResultsController: nil)
@@ -136,16 +139,6 @@ extension MainViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if authorized {
-            let searchWord = searchBar.text ?? ""
-            let endpointParameters = [Endpoint.Parameter.count: searchWord]
-            let endpoint = Endpoint(purpose: .users, parameters: endpointParameters)
-            let endpointConstructor = EndpointConstructor(endpoint: endpoint)
-            
-            guard let token = token, let url = endpointConstructor.makeURL(with: token, searchWord: searchWord), let networkService = networkService else { return }
-            networkService.makeRequest(for: url)
-        }
-        
         searchBar.resignFirstResponder()
     }
 }
@@ -174,21 +167,27 @@ extension MainViewController: NetworkServiceDelegate {
             }
         }
         
-        let geoTagMeta = collectedMeta.compactMap { $0.location == nil ? nil : $0 }
-        
-        var controllerToPush = UIViewController()
-        
-        DispatchQueue.main.async { [weak self] in
-            switch self?.scopeBar?.selectedSegmentIndex {
-            case 0: controllerToPush = MapViewController(meta: geoTagMeta)
-            case 1: controllerToPush = ListCollectionViewController(meta: collectedMeta)
-            default: break
-            }
-            self?.navigationController?.pushViewController(controllerToPush, animated: true)
+        metaBuffer = collectedMeta
+        let updateController = navigationItem.searchController?.searchResultsController as? UpdateController
+
+        DispatchQueue.main.async {
+            updateController?.updateResults(with: collectedMeta)
         }
     }
 }
 
-extension MainViewController: UISearchControllerDelegate {
-    
+extension MainViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if authorized, let text = searchController.searchBar.text, text.count > 0, text != buffer {
+            let searchWord = text
+            let endpointParameters = [Endpoint.Parameter.count: searchWord]
+            let endpoint = Endpoint(purpose: .users, parameters: endpointParameters)
+            let endpointConstructor = EndpointConstructor(endpoint: endpoint)
+            
+            guard let token = token, let url = endpointConstructor.makeURL(with: token, searchWord: searchWord), let networkService = networkService else { return }
+            networkService.makeRequest(for: url)
+            buffer = text
+            metaBuffer.removeAll()
+        }
+    }
 }
