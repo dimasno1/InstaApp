@@ -163,7 +163,9 @@ extension MainViewController: NetworkServiceDelegate {
         instaData.forEach { meta in
             switch meta {
             case .photoMeta(let photoMeta): collectedMeta.append(photoMeta)
-            case .videoMeta( _): break
+            print(photoMeta.attribution, photoMeta.caption, photoMeta.cellCaption, photoMeta.cellTags, photoMeta.comments, photoMeta.createdTime, photoMeta.filter, photoMeta.likes, photoMeta.tags, photoMeta.userHasLiked, photoMeta.user, separator: "\n")
+                
+            case .videoMeta(_): break
             }
         }
         

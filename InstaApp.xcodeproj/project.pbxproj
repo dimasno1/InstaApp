@@ -21,6 +21,9 @@
 		52BB515220FCC29000977418 /* InstaResponce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB515120FCC29000977418 /* InstaResponce.swift */; };
 		52BB515420FCE78100977418 /* InstaVideoMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB515320FCE78100977418 /* InstaVideoMeta.swift */; };
 		52BB515720FD06D000977418 /* ListCollectionViewControllerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB515620FD06D000977418 /* ListCollectionViewControllerCell.swift */; };
+		52D71BBA2107709A009C8FDD /* NewListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D71BB92107709A009C8FDD /* NewListCollectionViewCell.swift */; };
+		52D71BBC210771F9009C8FDD /* ListCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D71BBB210771F9009C8FDD /* ListCollectionViewHeader.swift */; };
+		52D71BBE2107722A009C8FDD /* ListCollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D71BBD2107722A009C8FDD /* ListCollectionViewFooter.swift */; };
 		52DFC9D220F78E210003B671 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DFC9D120F78E210003B671 /* AppDelegate.swift */; };
 		52DFC9D920F78E230003B671 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52DFC9D820F78E230003B671 /* Assets.xcassets */; };
 		52DFC9DC20F78E230003B671 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52DFC9DA20F78E230003B671 /* LaunchScreen.storyboard */; };
@@ -46,6 +49,9 @@
 		52BB515120FCC29000977418 /* InstaResponce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstaResponce.swift; sourceTree = "<group>"; };
 		52BB515320FCE78100977418 /* InstaVideoMeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstaVideoMeta.swift; sourceTree = "<group>"; };
 		52BB515620FD06D000977418 /* ListCollectionViewControllerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewControllerCell.swift; sourceTree = "<group>"; };
+		52D71BB92107709A009C8FDD /* NewListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewListCollectionViewCell.swift; sourceTree = "<group>"; };
+		52D71BBB210771F9009C8FDD /* ListCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewHeader.swift; sourceTree = "<group>"; };
+		52D71BBD2107722A009C8FDD /* ListCollectionViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewFooter.swift; sourceTree = "<group>"; };
 		52DFC9CE20F78E210003B671 /* InstaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52DFC9D120F78E210003B671 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52DFC9D820F78E230003B671 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -123,6 +129,9 @@
 			children = (
 				52DFC9E920F791CB0003B671 /* ListCollectionViewController.swift */,
 				52BB515620FD06D000977418 /* ListCollectionViewControllerCell.swift */,
+				52D71BB92107709A009C8FDD /* NewListCollectionViewCell.swift */,
+				52D71BBB210771F9009C8FDD /* ListCollectionViewHeader.swift */,
+				52D71BBD2107722A009C8FDD /* ListCollectionViewFooter.swift */,
 			);
 			path = ListViewController;
 			sourceTree = "<group>";
@@ -309,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				526D7E142102349F005B1AAE /* MapAnnotationView.swift in Sources */,
+				52D71BBC210771F9009C8FDD /* ListCollectionViewHeader.swift in Sources */,
 				52BB514820FC948600977418 /* NetworkService.swift in Sources */,
 				526D7E16210234D3005B1AAE /* MetaMapAnnotation.swift in Sources */,
 				52DFC9EC20F792670003B671 /* InitialViewController.swift in Sources */,
@@ -319,8 +329,10 @@
 				52BB515020FCAA5200977418 /* InstaMeta.swift in Sources */,
 				52AABF7A20F89CDD0044AA00 /* AuthorizeViewController.swift in Sources */,
 				52DFC9E820F7917B0003B671 /* MapViewController.swift in Sources */,
+				52D71BBA2107709A009C8FDD /* NewListCollectionViewCell.swift in Sources */,
 				52BB515220FCC29000977418 /* InstaResponce.swift in Sources */,
 				524F64C020F7ADED00999CC9 /* AuthorizeConstant.swift in Sources */,
+				52D71BBE2107722A009C8FDD /* ListCollectionViewFooter.swift in Sources */,
 				52DFC9EA20F791CB0003B671 /* ListCollectionViewController.swift in Sources */,
 				52DFC9E520F78E950003B671 /* MainViewController.swift in Sources */,
 				52BB514420FC831600977418 /* EndpointConstructor.swift in Sources */,
