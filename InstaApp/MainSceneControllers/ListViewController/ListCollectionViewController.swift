@@ -96,9 +96,5 @@ extension InstaMeta {
 extension ListCollectionViewController: UpdateController {
     func updateResults(with meta: [InstaMeta]) {
         self.meta = meta
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.collectionView.reloadData()
-        }
     }
 }

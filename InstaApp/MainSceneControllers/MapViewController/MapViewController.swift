@@ -44,7 +44,13 @@ class MapViewController: UIViewController {
         navigationItem.title = "Photos on map"
     }
     
-    private var annotations: [MKAnnotation]
+    private var annotations: [MKAnnotation] {
+        didSet(old) {
+            mapView.removeAnnotations(old)
+            mapView.addAnnotations(annotations)
+        }
+    }
+    
     private let mapView = MKMapView()
 }
 
@@ -63,20 +69,7 @@ extension MapViewController: MKMapViewDelegate {
 }
 
 extension MapViewController: UpdateController {
-
-    func updateResults(with meta: [InstaMeta]) {
-        let geoTagMeta = meta.compactMap { $0.location == nil ? nil : $0 }
-        let new = geoTagMeta.compactMap { $0.mapAnnotation }
-        
-        DispatchQueue.main.async { [weak self] in
-            guard let annotations = self?.annotations else {
-                return
-            }
-            
-            self?.mapView.removeAnnotations(annotations)
-            self?.mapView.addAnnotations(annotations)
-        }
-        
-        self.annotations = new
+    func updateResults(with metas: [InstaMeta]) {
+        annotations = metas.filter { $0.hasLocation }.compactMap { $0.mapAnnotation }
     }
 }

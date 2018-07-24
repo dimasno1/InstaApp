@@ -35,6 +35,10 @@ class InstaMeta: NSObject, Decodable {
         return MetaMapAnnotation(location: location, createdTime: createdTime, photo: photo)
     }
     
+    var hasLocation: Bool {
+        return location != nil
+    }
+    
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
