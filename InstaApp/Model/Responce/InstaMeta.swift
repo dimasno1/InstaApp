@@ -25,14 +25,25 @@ class InstaMeta: NSObject, Decodable {
     let location: Location?
     let attribution: String?
     let usersInPhoto: [User]?
-    let photo: UIImage?
     
-    var mapAnnotation: MetaMapAnnotation? {
-        guard let location = location, let photo = photo else {
+    var photoURL: URL? {
+        guard let urlString = images["standardResolution"]?.url else {
             return nil
         }
         
-        return MetaMapAnnotation(location: location, createdTime: createdTime, photo: photo)
+        return URL(string: urlString)
+    }
+    
+    var likesCount: Int {
+        return likes["count"] ?? 0
+    }
+    
+    var mapAnnotation: MetaMapAnnotation? {
+        guard let location = location, let url = photoURL else {
+            return nil
+        }
+        
+        return MetaMapAnnotation(location: location, createdTime: createdTime, photoURL: url)
     }
     
     var hasLocation: Bool {
@@ -57,14 +68,6 @@ class InstaMeta: NSObject, Decodable {
         location = try? container.decode(Location.self, forKey: .location)
         attribution = try? container.decode(String.self, forKey: .attribution)
         usersInPhoto = try? container.decode([User].self, forKey: .usersInPhoto)
-        
-        if let imageStringURL = images["standardResolution"]?.url, let imageURL = URL(string: imageStringURL) {
-            let imageData = try Data(contentsOf: imageURL)
-            let image = UIImage(data: imageData)
-            photo = image
-        } else {
-            photo = nil
-        }
     }
     
     enum CodingKeys: String, CodingKey {
@@ -78,6 +81,10 @@ extension InstaMeta {
         var fullName: String
         var profilePicture: String
         var username: String
+        
+        var pictureURL: URL? {
+            return URL(string: profilePicture)
+        }
     }
     
     struct Image: Codable {

@@ -43,43 +43,40 @@ class ListCollectionViewController: UIViewController {
             collectionView.reloadData()
         }
     }
+    
     private var collectionView: UICollectionView
 }
 
 extension ListCollectionViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
+  
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return meta.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListCollectionViewCell.identifier, for: indexPath)
-        let photoMeta = meta[indexPath.row]
         
-        if let cell = cell as? ListCollectionViewCell {
-            cell.setup(with: photoMeta)
+        guard let instaCell = cell as? ListCollectionViewCell else {
+            return cell
         }
         
-        return cell
+        let photoMeta = meta[indexPath.row]
+        instaCell.meta = photoMeta
+        
+        return instaCell
     }
 }
 
 extension ListCollectionViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.size.width, height: view.frame.size.height / 2)
+        let width = view.frame.size.width
+        let spaceForHeader = width / 7
+        return CGSize(width: width, height: width + spaceForHeader * 2)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
-    }
-}
-
-extension ListCollectionViewCell {
-    func setup(with meta: InstaMeta) {
-        if let photo = meta.photo {
-            setup(image: photo, captionText: meta.cellCaption, tags: meta.cellTags)
-        }
     }
 }
 

@@ -61,7 +61,6 @@ extension MapViewController: MKMapViewDelegate {
         
         if let view = view as? MapAnnotationView, let annotation = annotation as? MetaMapAnnotation {
             view.annotation = annotation
-            view.setup(image: annotation.photo)
         }
         
         return view

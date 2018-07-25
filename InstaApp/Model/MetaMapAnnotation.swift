@@ -17,16 +17,16 @@ class MetaMapAnnotation: NSObject, MKAnnotation {
         return location.name
     }
     
-    var photo: UIImage
+    var photoURL: URL
     
     var coordinate: CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
     }
     
-    init?(location: InstaMeta.Location, createdTime: String, photo: UIImage) {
+    init?(location: InstaMeta.Location, createdTime: String, photoURL: URL) {
         self.location = location
         self.subtitle = createdTime
-        self.photo = photo
+        self.photoURL = photoURL
         
         super.init()
     }
