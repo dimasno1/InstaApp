@@ -83,7 +83,6 @@ class InitialViewController: UIViewController {
     
     private let logoImageView = UIImageView()
     private let stateTextLabel = UILabel()
-    private lazy var searchController = UISearchController(searchResultsController: nil)
 }
 
 extension UIViewController {
