@@ -74,6 +74,6 @@ extension AuthorizeViewController: WKNavigationDelegate {
             
             let accessToken = String(stringNavigationURL[range.upperBound...])
             delegate?.didReceive(self, token: accessToken)
-        }
+        } 
     }
 }

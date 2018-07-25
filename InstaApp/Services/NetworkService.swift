@@ -38,9 +38,9 @@ extension NetworkService: URLSessionDelegate, URLSessionDataDelegate {
     }
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
-        
         if let response = response as? HTTPURLResponse {
             let statusCode = response.statusCode
+            
             if statusCode != 200 {
                 self.delegate?.didReceive(self, data: nil, with: NetworkServiceError.invalidResponce)
                 completionHandler(.cancel)

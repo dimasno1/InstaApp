@@ -125,7 +125,7 @@ class MainViewController: UIViewController {
 extension MainViewController: AuthorizeViewControllerDelegate {
     func didReceive(_ authorizeViewController: AuthorizeViewController, token: Token?) {
         let controller = UINavigationController(rootViewController: MainViewController(purpose: .initial, token: token))
-        
+
         childViewControllers.last?.deleteFromParent()
         addChild(controller, to: mainViewContainer)
     }
@@ -163,8 +163,6 @@ extension MainViewController: NetworkServiceDelegate {
         instaData.forEach { meta in
             switch meta {
             case .photoMeta(let photoMeta): collectedMeta.append(photoMeta)
-            print(photoMeta.attribution, photoMeta.caption, photoMeta.cellCaption, photoMeta.cellTags, photoMeta.comments, photoMeta.createdTime, photoMeta.filter, photoMeta.likes, photoMeta.tags, photoMeta.userHasLiked, photoMeta.user, separator: "\n")
-                
             case .videoMeta(_): break
             }
         }
@@ -180,6 +178,7 @@ extension MainViewController: NetworkServiceDelegate {
 
 extension MainViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
+        
         if authorized, let text = searchController.searchBar.text, text.count > 0, text != buffer {
             let searchWord = text
             let endpointParameters = [Endpoint.Parameter.count: searchWord]
