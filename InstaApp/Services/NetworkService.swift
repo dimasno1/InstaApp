@@ -17,7 +17,7 @@ protocol NetworkServiceDelegate: AnyObject {
 }
 
 class NetworkService: NSObject {
-    
+  
     weak var delegate: NetworkServiceDelegate?
     
     func makeRequest(for url: URL) {
@@ -28,6 +28,14 @@ class NetworkService: NSObject {
 }
 
 extension NetworkService: URLSessionDelegate, URLSessionDataDelegate {
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        print(error, task.currentRequest, task.progress)
+    }
+    
+    func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
+        print(error)
+    }
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         self.delegate?.didReceive(self, data: data, with: nil)
