@@ -9,23 +9,32 @@ final class ImageLoader {
     typealias Callback = (UIImage?) -> Void
     
     static func load(at url: URL, then callback: Callback? = nil) {
-        let shouldStartLoading = !imageCache.keys.contains(url)
+        let nsUrl = url as NSURL
+        let shouldStartLoading = picturesCache.object(forKey: nsUrl) == nil
         
         if shouldStartLoading {
             URLSession.shared.dataTask(with: url) { data, _, _ in
-                let image = data.flatMap(UIImage.init(data:))
+                guard let image = data.flatMap(UIImage.init(data:)) else {
+                    return
+                }
             
                 DispatchQueue.main.async {
                     callback?(image)
-                    imageCache[url] = image
+                    picturesCache.setObject(image, forKey: nsUrl, cost: 1)
                 }
                 }.resume()
         } else {
             DispatchQueue.main.async {
-                callback?(imageCache[url])
+                callback?(picturesCache.object(forKey: nsUrl))
             }
         }
     }
     
-    private static var imageCache: [URL: UIImage] = [:]
+    private static var picturesCache: NSCache<NSURL, UIImage> = {
+        let cache = NSCache<NSURL, UIImage>()
+        cache.name = "pictures_cache"
+        cache.totalCostLimit = 100
+        
+        return cache
+    }()
 }
