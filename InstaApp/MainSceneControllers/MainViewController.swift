@@ -119,7 +119,7 @@ class MainViewController: UIViewController {
     private var metaBuffer = [InstaMeta]()
     private var networkService: NetworkService?
     private var scopeBar: UISegmentedControl?
-    private var searchController = UISearchController(searchResultsController: nil)
+    private lazy var searchController = UISearchController(searchResultsController: nil)
 }
 
 extension MainViewController: AuthorizeViewControllerDelegate {

@@ -21,20 +21,17 @@ class NetworkService: NSObject {
     weak var delegate: NetworkServiceDelegate?
     
     func makeRequest(for url: URL) {
-        session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
-        let task = session.dataTask(with: url)
-        
-        task.resume()
+        session.dataTask(with: url).resume()
     }
     
-    private var session = URLSession()
+    private lazy var session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
 }
 
 extension NetworkService: URLSessionDelegate, URLSessionDataDelegate {
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         self.delegate?.didReceive(self, data: data, with: nil)
-        session.finishTasksAndInvalidate()
+        dataTask.cancel()
     }
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {

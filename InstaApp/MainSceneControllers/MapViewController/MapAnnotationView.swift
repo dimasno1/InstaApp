@@ -28,8 +28,8 @@ class MapAnnotationView: MKMarkerAnnotationView {
         image = nil
     }
     
-    func setup(image: UIImage) {
-        //        glyphImage = image
+    func setup(imageURL: URL) {
+        
     }
     
 }
