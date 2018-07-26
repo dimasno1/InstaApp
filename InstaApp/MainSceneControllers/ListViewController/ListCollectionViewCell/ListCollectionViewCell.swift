@@ -38,11 +38,7 @@ class ListCollectionViewCell: UICollectionViewCell {
         addSubview(stackView)
         makeConstraints()
     }
-    
-    deinit {
-        print("DEINIT CELL")
-    }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("Not implemented")
     }

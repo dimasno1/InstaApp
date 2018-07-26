@@ -37,7 +37,7 @@ class InitialViewController: UIViewController {
     private func setup() {
         let width = view.bounds.size.width / 3
         
-        logoImageView.image = UIImage(named: "logo.png")
+        logoImageView.image = R.image.logo()
         logoImageView.center = view.center
         logoImageView.bounds.size = CGSize(width: width, height: width)
         

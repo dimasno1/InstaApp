@@ -22,8 +22,8 @@ class HeartView: UIView {
         
         var image: UIImage? {
             switch self {
-            case .unchecked: return UIImage(named: "heart_unchecked.jpg")
-            case .checked: return UIImage(named: "heart_checked.jpg")
+            case .unchecked: return R.image.heart_uncheckedJpg()
+            case .checked: return R.image.heart_checkedJpg()
             }
         }
     }

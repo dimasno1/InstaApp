@@ -17,6 +17,7 @@
 		527BB32620FBBE6B007EA4E9 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527BB32520FBBE6B007EA4E9 /* Endpoint.swift */; };
 		527FFA27210091A100DD5FA4 /* Billabong.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 527FFA262100919A00DD5FA4 /* Billabong.ttf */; };
 		527FFA292100B4E100DD5FA4 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 527FFA282100B4E100DD5FA4 /* logo.png */; };
+		52A4EF8F2109CD5B001790EA /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A4EF8E2109CD5B001790EA /* R.generated.swift */; };
 		52AABF7A20F89CDD0044AA00 /* AuthorizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AABF7920F89CDD0044AA00 /* AuthorizeViewController.swift */; };
 		52BB514420FC831600977418 /* EndpointConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB514320FC831600977418 /* EndpointConstructor.swift */; };
 		52BB514820FC948600977418 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB514720FC948600977418 /* NetworkService.swift */; };
@@ -47,6 +48,7 @@
 		527BB32520FBBE6B007EA4E9 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		527FFA262100919A00DD5FA4 /* Billabong.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Billabong.ttf; sourceTree = "<group>"; };
 		527FFA282100B4E100DD5FA4 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		52A4EF8E2109CD5B001790EA /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		52AABF7920F89CDD0044AA00 /* AuthorizeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeViewController.swift; sourceTree = "<group>"; };
 		52BB514320FC831600977418 /* EndpointConstructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointConstructor.swift; sourceTree = "<group>"; };
 		52BB514720FC948600977418 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				52DFC9ED20F798380003B671 /* README.md */,
+				52A4EF8E2109CD5B001790EA /* R.generated.swift */,
 				52DFC9D020F78E210003B671 /* InstaApp */,
 				52DFC9CF20F78E210003B671 /* Products */,
 				152A790F9D603D34D58A8E55 /* Pods */,
@@ -225,6 +228,7 @@
 			buildConfigurationList = 52DFC9E020F78E230003B671 /* Build configuration list for PBXNativeTarget "InstaApp" */;
 			buildPhases = (
 				5E2B4248DD350AEDCD4D49A4 /* [CP] Check Pods Manifest.lock */,
+				52A4EF8D2109CD2F001790EA /* ShellScript */,
 				52DFC9CA20F78E210003B671 /* Sources */,
 				52DFC9CB20F78E210003B671 /* Frameworks */,
 				52DFC9CC20F78E210003B671 /* Resources */,
@@ -289,6 +293,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		52A4EF8D2109CD2F001790EA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT\"";
+		};
 		5E2B4248DD350AEDCD4D49A4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -314,10 +331,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-InstaApp/Pods-InstaApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -340,6 +359,7 @@
 				526D7E16210234D3005B1AAE /* MetaMapAnnotation.swift in Sources */,
 				52DFC9EC20F792670003B671 /* InitialViewController.swift in Sources */,
 				52BB515420FCE78100977418 /* InstaVideoMeta.swift in Sources */,
+				52A4EF8F2109CD5B001790EA /* R.generated.swift in Sources */,
 				527BB32620FBBE6B007EA4E9 /* Endpoint.swift in Sources */,
 				52DFC9D220F78E210003B671 /* AppDelegate.swift in Sources */,
 				52BB515020FCAA5200977418 /* InstaMeta.swift in Sources */,
