@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol Command {
+    typealias Callback = ([InstaMeta]) -> Void
+    func decode(then callback: Callback?)
+}
+
+
 class MainViewController: UIViewController {
     
     init(purpose: Purpose, token: Token? = nil) {
@@ -112,20 +118,29 @@ class MainViewController: UIViewController {
         return token != nil
     }
     
+    private var metaBuffer = [InstaMeta]() {
+        didSet {
+            let updateController = navigationItem.searchController?.searchResultsController as? UpdateController
+            DispatchQueue.main.async {
+                updateController?.updateResults(with: self.metaBuffer)
+            }
+        }
+    }
+    
     private var buffer: String = ""
     private (set) var token: Token?
     private let purpose: Purpose
     private let mainViewContainer = UIView()
-    private var metaBuffer = [InstaMeta]()
     private var networkService: NetworkService?
     private var scopeBar: UISegmentedControl?
+    private var receivedDataDispatcher = ReceivedDataDispatcher()
     private lazy var searchController = UISearchController(searchResultsController: nil)
 }
 
 extension MainViewController: AuthorizeViewControllerDelegate {
     func didReceive(_ authorizeViewController: AuthorizeViewController, token: Token?) {
         let controller = UINavigationController(rootViewController: MainViewController(purpose: .initial, token: token))
-
+        
         childViewControllers.last?.deleteFromParent()
         addChild(controller, to: mainViewContainer)
     }
@@ -151,10 +166,39 @@ extension MainViewController: NetworkServiceDelegate {
             return
         }
         
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let decodeCommand = DecodeCommand(data: data)
+        receivedDataDispatcher.add(decodeCommand) { [weak self] in
+            self?.metaBuffer = $0
+        }
+    }
+}
+
+extension MainViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if authorized, let text = searchController.searchBar.text, text.count > 0, text != buffer {
+            buffer = text
+    
+            let searchWord = text
+            let endpointParameters = [Endpoint.Parameter.count: searchWord]
+            let endpoint = Endpoint(purpose: .users, parameters: endpointParameters)
+            let endpointConstructor = EndpointConstructor(endpoint: endpoint)
+            
+            guard let token = token, let url = endpointConstructor.makeURL(with: token, searchWord: searchWord),let networkService = networkService else {
+                return
+            }
+            
+            networkService.makeRequest(for: url)
+            metaBuffer.removeAll()
+        }
+    }
+}
+
+extension JSONDecoder {
+    func decode(data: Data, then callback: Command.Callback?) {
+        self.keyDecodingStrategy = .convertFromSnakeCase
         
-        guard let instaResponce = try? decoder.decode(InstaResponce.self, from: data), let instaData = instaResponce.data else {
+        guard let instaResponce = try? self.decode(InstaResponce.self, from: data), let instaData = instaResponce.data else {
+            callback?([])
             return
         }
         
@@ -166,29 +210,7 @@ extension MainViewController: NetworkServiceDelegate {
             case .videoMeta(_): break
             }
         }
-        
-        metaBuffer = collectedMeta
-        let updateController = navigationItem.searchController?.searchResultsController as? UpdateController
-        
-        DispatchQueue.main.async {
-            updateController?.updateResults(with: collectedMeta)
-        }
-    }
-}
 
-extension MainViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        
-        if authorized, let text = searchController.searchBar.text, text.count > 0, text != buffer {
-            let searchWord = text
-            let endpointParameters = [Endpoint.Parameter.count: searchWord]
-            let endpoint = Endpoint(purpose: .users, parameters: endpointParameters)
-            let endpointConstructor = EndpointConstructor(endpoint: endpoint)
-            
-            guard let token = token, let url = endpointConstructor.makeURL(with: token, searchWord: searchWord), let networkService = networkService else { return }
-            networkService.makeRequest(for: url)
-            buffer = text
-            metaBuffer.removeAll()
-        }
+        callback?(collectedMeta)
     }
 }

@@ -17,29 +17,38 @@ protocol NetworkServiceDelegate: AnyObject {
 }
 
 class NetworkService: NSObject {
-  
+    
     weak var delegate: NetworkServiceDelegate?
     
     func makeRequest(for url: URL) {
-        session.dataTask(with: url).resume()
+        let task = session.dataTask(with: url)
+        lastCreatedTaskIdentifier = task.taskIdentifier
+        task.resume()
     }
     
+    private var dataCache: NSCache<NSNumber, NSData> = {
+        let cache = NSCache<NSNumber, NSData>()
+        cache.countLimit = 100
+        return cache
+    }()
+    
     private lazy var session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
+    private var lastCreatedTaskIdentifier: Int = 0
 }
 
 extension NetworkService: URLSessionDelegate, URLSessionDataDelegate {
     
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        print(error, task.currentRequest, task.progress)
-    }
-    
-    func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
-        print(error)
-    }
-    
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-        self.delegate?.didReceive(self, data: data, with: nil)
-        dataTask.cancel()
+        dataCache.setObject(data as NSData, forKey: dataTask.taskIdentifier as NSNumber)
+        
+        if Environment.isDebug {
+            print(dataTask.taskIdentifier, lastCreatedTaskIdentifier, separator: " <- dataFor TaskID, last created TaskID ->")
+        }
+        
+//        if dataTask.taskIdentifier == lastCreatedTaskIdentifier {
+            let data = dataCache.object(forKey: lastCreatedTaskIdentifier as NSNumber).flatMap { $0 as Data }
+            self.delegate?.didReceive(self, data: data, with: nil)
+//        }
     }
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {

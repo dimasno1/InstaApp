@@ -11,6 +11,7 @@ import MapKit
 
 protocol UpdateController: AnyObject {
     func updateResults(with meta: [InstaMeta])
+    func showLoadingIndicator()
 }
 
 class MapViewController: UIViewController {
@@ -70,5 +71,9 @@ extension MapViewController: MKMapViewDelegate {
 extension MapViewController: UpdateController {
     func updateResults(with metas: [InstaMeta]) {
         annotations = metas.filter { $0.hasLocation }.compactMap { $0.mapAnnotation }
+    }
+    
+    func showLoadingIndicator() {
+        
     }
 }
