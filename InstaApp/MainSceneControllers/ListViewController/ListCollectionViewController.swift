@@ -94,4 +94,8 @@ extension ListCollectionViewController: UpdateController {
     func updateResults(with meta: [InstaMeta]) {
         self.meta = meta
     }
+    
+    func showLoadingIndicator() {
+        
+    }
 }

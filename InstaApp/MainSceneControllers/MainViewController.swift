@@ -125,7 +125,7 @@ class MainViewController: UIViewController {
 extension MainViewController: AuthorizeViewControllerDelegate {
     func didReceive(_ authorizeViewController: AuthorizeViewController, token: Token?) {
         let controller = UINavigationController(rootViewController: MainViewController(purpose: .initial, token: token))
-
+        
         childViewControllers.last?.deleteFromParent()
         addChild(controller, to: mainViewContainer)
     }
@@ -146,7 +146,7 @@ extension MainViewController: UISearchBarDelegate {
 
 extension MainViewController: NetworkServiceDelegate {
     
-    func didReceive(_ networkService: NetworkService, data: Data?, with error: Error?) {
+    func didReceive(_ networkService: NetworkService, data: Data?, with error: NetworkServiceError?) {
         guard let data = data else {
             return
         }
@@ -180,6 +180,7 @@ extension MainViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         
         if authorized, let text = searchController.searchBar.text, text.count > 0, text != buffer {
+            buffer = text
             let searchWord = text
             let endpointParameters = [Endpoint.Parameter.count: searchWord]
             let endpoint = Endpoint(purpose: .users, parameters: endpointParameters)
@@ -187,7 +188,6 @@ extension MainViewController: UISearchResultsUpdating {
             
             guard let token = token, let url = endpointConstructor.makeURL(with: token, searchWord: searchWord), let networkService = networkService else { return }
             networkService.makeRequest(for: url)
-            buffer = text
             metaBuffer.removeAll()
         }
     }

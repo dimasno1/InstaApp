@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		52306C29210B41D4005BA5A3 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52306C28210B41D4005BA5A3 /* Environment.swift */; };
 		524F64C020F7ADED00999CC9 /* AuthorizeConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524F64BF20F7ADED00999CC9 /* AuthorizeConstant.swift */; };
 		5251A0B021086B2E008113C8 /* HeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251A0AF21086B2E008113C8 /* HeartView.swift */; };
 		5251A0B321086CE2008113C8 /* heart_unchecked.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5251A0B121086CE2008113C8 /* heart_unchecked.jpg */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		52306C28210B41D4005BA5A3 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		524F64BF20F7ADED00999CC9 /* AuthorizeConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeConstant.swift; sourceTree = "<group>"; };
 		5251A0AF21086B2E008113C8 /* HeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartView.swift; sourceTree = "<group>"; };
 		5251A0B121086CE2008113C8 /* heart_unchecked.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = heart_unchecked.jpg; sourceTree = "<group>"; };
@@ -102,6 +104,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		52306C27210B41A4005BA5A3 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				52306C28210B41D4005BA5A3 /* Environment.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		5251A0B521088CDB008113C8 /* ListCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +121,14 @@
 				5251A0AF21086B2E008113C8 /* HeartView.swift */,
 			);
 			path = ListCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		52546E8D210B414E00E05437 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				52A4EF8E2109CD5B001790EA /* R.generated.swift */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		526D7E17210235A7005B1AAE /* MapViewController */ = {
@@ -155,7 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				52DFC9ED20F798380003B671 /* README.md */,
-				52A4EF8E2109CD5B001790EA /* R.generated.swift */,
+				52546E8D210B414E00E05437 /* Resources */,
 				52DFC9D020F78E210003B671 /* InstaApp */,
 				52DFC9CF20F78E210003B671 /* Products */,
 				152A790F9D603D34D58A8E55 /* Pods */,
@@ -174,6 +192,7 @@
 		52DFC9D020F78E210003B671 /* InstaApp */ = {
 			isa = PBXGroup;
 			children = (
+				52306C27210B41A4005BA5A3 /* Common */,
 				52DFC9D120F78E210003B671 /* AppDelegate.swift */,
 				52DFC9E620F78EE80003B671 /* MainSceneControllers */,
 				52DFC9F020F79BBB0003B671 /* Model */,
@@ -358,6 +377,7 @@
 				52BB514820FC948600977418 /* NetworkService.swift in Sources */,
 				526D7E16210234D3005B1AAE /* MetaMapAnnotation.swift in Sources */,
 				52DFC9EC20F792670003B671 /* InitialViewController.swift in Sources */,
+				52306C29210B41D4005BA5A3 /* Environment.swift in Sources */,
 				52BB515420FCE78100977418 /* InstaVideoMeta.swift in Sources */,
 				52A4EF8F2109CD5B001790EA /* R.generated.swift in Sources */,
 				527BB32620FBBE6B007EA4E9 /* Endpoint.swift in Sources */,
@@ -538,6 +558,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dimasno1.InstaApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

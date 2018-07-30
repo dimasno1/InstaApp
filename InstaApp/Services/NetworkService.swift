@@ -10,36 +10,45 @@ import Foundation
 
 enum NetworkServiceError: Error {
     case invalidResponce
+    case unableToReadData
 }
 
 protocol NetworkServiceDelegate: AnyObject {
-    func didReceive(_ networkService: NetworkService, data: Data?, with error: Error?)
+    func didReceive(_ networkService: NetworkService, data: Data?, with error: NetworkServiceError?)
 }
 
 class NetworkService: NSObject {
-  
+    
     weak var delegate: NetworkServiceDelegate?
     
     func makeRequest(for url: URL) {
-        session.dataTask(with: url).resume()
+        let task = session.dataTask(with: url)
+        lastCreatedTaskIdentifier = task.taskIdentifier
+        task.resume()
     }
     
     private lazy var session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
+    private var lastCreatedTaskIdentifier: Int = 0
 }
 
-extension NetworkService: URLSessionDelegate, URLSessionDataDelegate {
+
+extension NetworkService: URLSessionDelegate, URLSessionDataDelegate, URLSessionDownloadDelegate {
     
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        print(error, task.currentRequest, task.progress)
-    }
-    
-    func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
-        print(error)
-    }
-    
-    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        if Environment.isDebug {
+            print(downloadTask.taskIdentifier, lastCreatedTaskIdentifier, separator: " <- dataFor TaskID, last created TaskID ->")
+        }
+        
+        guard let data = try? Data(contentsOf: location) else {
+            self.delegate?.didReceive(self, data: nil, with: .unableToReadData)
+            return
+        }
+        
         self.delegate?.didReceive(self, data: data, with: nil)
-        dataTask.cancel()
+    }
+    
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome downloadTask: URLSessionDownloadTask) {
+        downloadTask.resume()
     }
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
@@ -47,10 +56,10 @@ extension NetworkService: URLSessionDelegate, URLSessionDataDelegate {
             let statusCode = response.statusCode
             
             if statusCode != 200 {
-                self.delegate?.didReceive(self, data: nil, with: NetworkServiceError.invalidResponce)
+                self.delegate?.didReceive(self, data: nil, with: .invalidResponce)
                 completionHandler(.cancel)
             } else {
-                completionHandler(.allow)
+                dataTask.taskIdentifier == lastCreatedTaskIdentifier ? completionHandler(.becomeDownload) : completionHandler(.cancel)
             }
         }
     }
