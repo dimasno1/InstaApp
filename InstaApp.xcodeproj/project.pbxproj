@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		52306C29210B41D4005BA5A3 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52306C28210B41D4005BA5A3 /* Environment.swift */; };
-		52306C2B210B4A7B005BA5A3 /* ReceivedDataDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52306C2A210B4A7B005BA5A3 /* ReceivedDataDispatcher.swift */; };
-		52306C2D210B4FB7005BA5A3 /* DecodeCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52306C2C210B4FB7005BA5A3 /* DecodeCommand.swift */; };
 		524F64C020F7ADED00999CC9 /* AuthorizeConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524F64BF20F7ADED00999CC9 /* AuthorizeConstant.swift */; };
 		5251A0B021086B2E008113C8 /* HeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251A0AF21086B2E008113C8 /* HeartView.swift */; };
 		5251A0B321086CE2008113C8 /* heart_unchecked.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5251A0B121086CE2008113C8 /* heart_unchecked.jpg */; };
@@ -42,8 +40,6 @@
 
 /* Begin PBXFileReference section */
 		52306C28210B41D4005BA5A3 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
-		52306C2A210B4A7B005BA5A3 /* ReceivedDataDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedDataDispatcher.swift; sourceTree = "<group>"; };
-		52306C2C210B4FB7005BA5A3 /* DecodeCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodeCommand.swift; sourceTree = "<group>"; };
 		524F64BF20F7ADED00999CC9 /* AuthorizeConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeConstant.swift; sourceTree = "<group>"; };
 		5251A0AF21086B2E008113C8 /* HeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartView.swift; sourceTree = "<group>"; };
 		5251A0B121086CE2008113C8 /* heart_unchecked.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = heart_unchecked.jpg; sourceTree = "<group>"; };
@@ -150,8 +146,6 @@
 				5251A0B62108A882008113C8 /* ImageLoader.swift */,
 				52BB514320FC831600977418 /* EndpointConstructor.swift */,
 				52BB514720FC948600977418 /* NetworkService.swift */,
-				52306C2A210B4A7B005BA5A3 /* ReceivedDataDispatcher.swift */,
-				52306C2C210B4FB7005BA5A3 /* DecodeCommand.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -376,7 +370,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52306C2B210B4A7B005BA5A3 /* ReceivedDataDispatcher.swift in Sources */,
 				526D7E142102349F005B1AAE /* MapAnnotationView.swift in Sources */,
 				52D71BBC210771F9009C8FDD /* ListCollectionViewHeader.swift in Sources */,
 				5251A0B72108A882008113C8 /* ImageLoader.swift in Sources */,
@@ -385,7 +378,6 @@
 				526D7E16210234D3005B1AAE /* MetaMapAnnotation.swift in Sources */,
 				52DFC9EC20F792670003B671 /* InitialViewController.swift in Sources */,
 				52306C29210B41D4005BA5A3 /* Environment.swift in Sources */,
-				52306C2D210B4FB7005BA5A3 /* DecodeCommand.swift in Sources */,
 				52BB515420FCE78100977418 /* InstaVideoMeta.swift in Sources */,
 				52A4EF8F2109CD5B001790EA /* R.generated.swift in Sources */,
 				527BB32620FBBE6B007EA4E9 /* Endpoint.swift in Sources */,
