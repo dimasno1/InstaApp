@@ -161,7 +161,7 @@ extension MainViewController: UISearchBarDelegate {
 
 extension MainViewController: NetworkServiceDelegate {
     
-    func didReceive(_ networkService: NetworkService, data: Data?, with error: Error?) {
+    func didReceive(_ networkService: NetworkService, data: Data?, with error: NetworkServiceError?) {
         guard let data = data else {
             return
         }

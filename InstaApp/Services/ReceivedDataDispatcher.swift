@@ -19,9 +19,7 @@ final class ReceivedDataDispatcher {
         guard !isBusy, let decodeCommand = receivedDataQueue.first else {
             return
         }
-        
-        print(receivedDataQueue.count)
-        
+  
         isBusy = true
         receivedDataQueue.remove(at: 0)
         
