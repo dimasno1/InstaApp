@@ -70,8 +70,7 @@ class MainViewController: UIViewController {
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        
-        if keyPath == "selectedSegmentIndex", let change = change, let old = change[.oldKey] as? Int, let newValue = change[.newKey] as? Int, old != newValue, old != -1 {
+        if keyPath == "selectedSegmentIndex", let change = change, let old = change[.oldKey] as? Int, let newValue = change[.newKey] as? Int, old != newValue {
             buffer = searchController.searchBar.text ?? ""
             
             searchController.dismiss(animated: true, completion: nil)
@@ -91,7 +90,7 @@ class MainViewController: UIViewController {
         
         navigationItem.searchController = searchController
         
-        present(searchController, animated: true, completion: nil)
+        present(searchController, animated: false, completion: nil)
     }
     
     enum Purpose {
@@ -170,9 +169,7 @@ extension MainViewController: NetworkServiceDelegate {
         metaBuffer = collectedMeta
         let updateController = navigationItem.searchController?.searchResultsController as? UpdateController
         
-        DispatchQueue.main.async {
-            updateController?.updateResults(with: collectedMeta)
-        }
+        updateController?.updateResults(with: collectedMeta)
     }
 }
 
@@ -186,7 +183,10 @@ extension MainViewController: UISearchResultsUpdating {
             let endpoint = Endpoint(purpose: .users, parameters: endpointParameters)
             let endpointConstructor = EndpointConstructor(endpoint: endpoint)
             
-            guard let token = token, let url = endpointConstructor.makeURL(with: token, searchWord: searchWord), let networkService = networkService else { return }
+            guard let token = token, let url = endpointConstructor.makeURL(with: token, searchWord: searchWord), let networkService = networkService else {
+                return
+            }
+            
             networkService.makeRequest(for: url)
             metaBuffer.removeAll()
         }

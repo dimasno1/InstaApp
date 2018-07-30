@@ -18,6 +18,7 @@
 		527BB32620FBBE6B007EA4E9 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527BB32520FBBE6B007EA4E9 /* Endpoint.swift */; };
 		527FFA27210091A100DD5FA4 /* Billabong.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 527FFA262100919A00DD5FA4 /* Billabong.ttf */; };
 		527FFA292100B4E100DD5FA4 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 527FFA282100B4E100DD5FA4 /* logo.png */; };
+		5290F2EE210F216100F4888A /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5290F2ED210F216100F4888A /* Sequence.swift */; };
 		52A4EF8F2109CD5B001790EA /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A4EF8E2109CD5B001790EA /* R.generated.swift */; };
 		52AABF7A20F89CDD0044AA00 /* AuthorizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AABF7920F89CDD0044AA00 /* AuthorizeViewController.swift */; };
 		52BB514420FC831600977418 /* EndpointConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB514320FC831600977418 /* EndpointConstructor.swift */; };
@@ -50,6 +51,7 @@
 		527BB32520FBBE6B007EA4E9 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		527FFA262100919A00DD5FA4 /* Billabong.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Billabong.ttf; sourceTree = "<group>"; };
 		527FFA282100B4E100DD5FA4 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		5290F2ED210F216100F4888A /* Sequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequence.swift; sourceTree = "<group>"; };
 		52A4EF8E2109CD5B001790EA /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		52AABF7920F89CDD0044AA00 /* AuthorizeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeViewController.swift; sourceTree = "<group>"; };
 		52BB514320FC831600977418 /* EndpointConstructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointConstructor.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				5251A0B62108A882008113C8 /* ImageLoader.swift */,
 				52BB514320FC831600977418 /* EndpointConstructor.swift */,
 				52BB514720FC948600977418 /* NetworkService.swift */,
+				5290F2ED210F216100F4888A /* Sequence.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				526D7E142102349F005B1AAE /* MapAnnotationView.swift in Sources */,
+				5290F2EE210F216100F4888A /* Sequence.swift in Sources */,
 				52D71BBC210771F9009C8FDD /* ListCollectionViewHeader.swift in Sources */,
 				5251A0B72108A882008113C8 /* ImageLoader.swift in Sources */,
 				5251A0B021086B2E008113C8 /* HeartView.swift in Sources */,

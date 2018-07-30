@@ -33,7 +33,6 @@ class NetworkService: NSObject {
 
 
 extension NetworkService: URLSessionDelegate, URLSessionDataDelegate, URLSessionDownloadDelegate {
-    
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         if Environment.isDebug {
             print(downloadTask.taskIdentifier, lastCreatedTaskIdentifier, separator: " <- dataFor TaskID, last created TaskID ->")
@@ -54,7 +53,7 @@ extension NetworkService: URLSessionDelegate, URLSessionDataDelegate, URLSession
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         if let response = response as? HTTPURLResponse {
             let statusCode = response.statusCode
-            
+
             if statusCode != 200 {
                 self.delegate?.didReceive(self, data: nil, with: .invalidResponce)
                 completionHandler(.cancel)
@@ -64,3 +63,4 @@ extension NetworkService: URLSessionDelegate, URLSessionDataDelegate, URLSession
         }
     }
 }
+
