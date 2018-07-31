@@ -28,11 +28,11 @@ class MainViewController: UIViewController {
         }
         
         let controller = purpose.controller(token: token)
-        
-        if let controller = controller as? AuthorizeViewController {
-            controller.delegate = self
-        }
-        
+//        
+//        if let controller = controller as? AuthorizeViewController {
+//            controller.delegate = self
+//        }
+//        
         mainViewContainer.frame = view.bounds
         addChild(controller, to: mainViewContainer)
         
@@ -43,12 +43,8 @@ class MainViewController: UIViewController {
         definesPresentationContext = true
         
         scopeBar = UISegmentedControl(items: ["Map", "List"])
-        scopeBar?.addObserver(self, forKeyPath: "selectedSegmentIndex", options: [.new, .old], context: nil)
         
-        guard let scopeBar = scopeBar else {
-            return
-        }
-        
+        scopeBar.addObserver(self, forKeyPath: "selectedSegmentIndex", options: [.new, .old], context: nil)
         scopeBar.tintColor = .pink
         scopeBar.layer.cornerRadius = scopeBar.frame.height / 2
         scopeBar.layer.borderColor = UIColor.pink.cgColor
@@ -96,8 +92,8 @@ class MainViewController: UIViewController {
         
         func controller(token: Token?) -> UIViewController {
             switch self {
-            case .authorization: return AuthorizeViewController()
-            case .initial: return InitialViewController(token: token)
+            case .authorization: return UIViewController()
+            case .initial: return StartScreenViewController(token: token)
             case .test: return UINavigationController(rootViewController: MainViewController(purpose: .initial, token: "token"))
             }
         }
@@ -112,18 +108,11 @@ class MainViewController: UIViewController {
     private let purpose: Purpose
     private let mainViewContainer = UIView()
     private var metaBuffer = [InstaMeta]()
-    private var scopeBar: UISegmentedControl?
+    private var scopeBar = UISegmentedControl()
     private lazy var searchController = UISearchController(searchResultsController: nil)
 }
 
-extension MainViewController: AuthorizeViewControllerDelegate {
-    func didReceive(_ authorizeViewController: AuthorizeViewController, token: Token?) {
-        let controller = UINavigationController(rootViewController: MainViewController(purpose: .initial, token: token))
-        
-        childViewControllers.last?.deleteFromParent()
-        addChild(controller, to: mainViewContainer)
-    }
-}
+
 
 
 extension MainViewController: UISearchBarDelegate {
@@ -171,8 +160,8 @@ extension MainViewController: UISearchResultsUpdating {
                 
                 instaData.forEach { meta in
                     switch meta {
-                    case .photoMeta(let photoMeta): collectedMeta.append(photoMeta)
-                    case .videoMeta(_): break
+                    case .left(let photoMeta): collectedMeta.append(photoMeta)
+                    case .right(_): break
                     }
                 }
                 
@@ -184,3 +173,5 @@ extension MainViewController: UISearchResultsUpdating {
         }
     }
 }
+
+

@@ -10,10 +10,10 @@ import Foundation
 
 class InstaResponce: NSObject, Decodable {
     let pagination: [String: String]?
-    let data: [Type<InstaMeta, InstaVideoMeta>]?
+    let data: [Either<InstaMeta, InstaVideoMeta>]?
     let meta: [String: Int]?
     
-    init(pagination: [String: String], data: [Type<InstaMeta, InstaVideoMeta>], meta: [String: Int]) {
+    init(pagination: [String: String], data: [Either<InstaMeta, InstaVideoMeta>], meta: [String: Int]) {
         self.pagination = pagination
         self.data = data
         self.meta = meta
@@ -24,7 +24,7 @@ class InstaResponce: NSObject, Decodable {
         
         pagination = try? container.decode([String: String].self, forKey: .pagination)
         meta = try? container.decode([String: Int].self, forKey: .meta)
-        data = try? container.decode([Type<InstaMeta, InstaVideoMeta>].self, forKey: .data)
+        data = try? container.decode([Either<InstaMeta, InstaVideoMeta>].self, forKey: .data)
     }
     
     enum CodingKeys: String, CodingKey {

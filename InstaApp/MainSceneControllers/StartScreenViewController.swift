@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class InitialViewController: UIViewController {
+class StartScreenViewController: UIViewController {
     
     init(token: Token?) {
         self.state = State(token: token)
@@ -48,6 +48,24 @@ class InitialViewController: UIViewController {
         stateTextLabel.center.y = logoImageView.frame.maxY + 20
     }
     
+    private func makeConstraints() {
+        let width = view.bounds.size.width / 3
+        
+        logoImageView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.equalTo(width)
+            make.height.equalTo(logoImageView.snp.width)
+        }
+    }
+    
+    private func prepareActionButton(for state: State) {
+        if case state == .error {
+            actionButton.setTitle("Repeat authorization", for: .normal)
+        } else if case state == .succes(token:_) {
+            actionButton.setTitle("Start searching", for: .normal)
+        }
+    }
+    
     enum State {
         case error
         case succes(token: String)
@@ -55,7 +73,7 @@ class InitialViewController: UIViewController {
         var description: String {
             switch self {
             case .error: return "Sorry, you're not authorized. Try again"
-            case .succes: return "Try to search for photos"
+            case .succes: return "Now you're ready to search for photos"
             }
         }
         
@@ -72,7 +90,6 @@ class InitialViewController: UIViewController {
         return false
     }
     
-    private var state: State
     private var token: Token {
         if case let .succes(token: token) = state {
             return token
@@ -81,6 +98,14 @@ class InitialViewController: UIViewController {
         return ""
     }
     
+    
+    private var actionButton: UIButton = {
+        let button = UIButton(type: .system)
+        
+        return button
+    }()
+    
+    private var state: State
     private let logoImageView = UIImageView()
     private let stateTextLabel = UILabel()
 }
@@ -94,7 +119,7 @@ extension UIViewController {
         controller.didMove(toParentViewController: self)
     }
     
-    func deleteFromParent() {
+    func removeFromParent() {
         willMove(toParentViewController: nil)
         view.removeFromSuperview()
         removeFromParentViewController()

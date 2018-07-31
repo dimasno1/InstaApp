@@ -8,9 +8,10 @@
 
 import UIKit
 import WebKit
+import SnapKit
 
 protocol AuthorizeViewControllerDelegate: AnyObject {
-    func didReceive(_ authorizeViewController: AuthorizeViewController, token: Token?)
+    func didReceive(_ authorizeViewController: AuthorizeViewController, result: AuthorizeViewController.AuthorizationResult)
 }
 
 typealias Token = String
@@ -19,18 +20,27 @@ class AuthorizeViewController: UIViewController {
     
     weak var delegate: AuthorizeViewControllerDelegate?
     
+    init(delegate: AuthorizeViewControllerDelegate) {
+        self.delegate = delegate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("not implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setup()
         view.addSubview(webView)
+        setup()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         authorize()
     }
-    
+  
     private func setup() {
         webView.frame = view.bounds
         webView.navigationDelegate = self
@@ -49,11 +59,17 @@ class AuthorizeViewController: UIViewController {
         guard let authURL = constructor.makeURL() else {
             return
         }
-      
+        
         let urlRequest = URLRequest.init(url: authURL)
         webView.load(urlRequest)
     }
     
+    
+    enum AuthorizationResult {
+        case failed
+        case success(Token)
+    }
+  
     private var urlString: String = ""
     private let webView = WKWebView()
 }
@@ -65,6 +81,7 @@ extension AuthorizeViewController: WKNavigationDelegate {
         guard let stringNavigationURL = navigationAction.request.url?.absoluteString else {
             return
         }
+        print(navigationAction.navigationType)
         
         let successPhrase = "#access_token="
         if stringNavigationURL.contains(successPhrase) {
@@ -73,7 +90,7 @@ extension AuthorizeViewController: WKNavigationDelegate {
             }
             
             let accessToken = String(stringNavigationURL[range.upperBound...])
-            delegate?.didReceive(self, token: accessToken)
+            delegate?.didReceive(self, result: .success(accessToken))
         } 
     }
 }

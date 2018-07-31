@@ -108,16 +108,16 @@ extension InstaMeta {
     }
 }
 
-enum Type<T,U>: Decodable where T:Decodable, U:Decodable {
+enum Either<T,U>: Decodable where T:Decodable, U:Decodable {
     
-    case photoMeta(T)
-    case videoMeta(U)
+    case left(T)
+    case right(U)
     
     init(from decoder: Decoder) throws {
         if let decoded = try? U(from: decoder) {
-            self = .videoMeta(decoded)
+            self = .right(decoded)
         } else if let decoded = try? T(from: decoder) {
-            self = .photoMeta(decoded)
+            self = .left(decoded)
         } else {
             let context = DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Unable do decode: \(T.self) and \(U.self)")
             throw DecodingError.dataCorrupted(context)
