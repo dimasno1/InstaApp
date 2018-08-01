@@ -74,8 +74,6 @@ class SearchViewController: UIViewController {
         searchController.hidesNavigationBarDuringPresentation = false
 
         navigationItem.searchController = searchController
-
-        present(searchController, animated: false, completion: nil)
     }
 
     private var token: Token

@@ -59,7 +59,7 @@ class MainContainerViewController: UIViewController {
 }
 
 extension MainContainerViewController: AuthorizeViewControllerDelegate {
-    func didReceive(_ authorizeViewController: AuthorizeViewController, result: AuthorizeViewController.AuthorizationResult) {
+    func authorizeViewController(_ controller: AuthorizeViewController, didReceive result: AuthorizeViewController.AuthorizationResult) {
         switch result {
         case let .success(token): changeState(to: .authorized(token))
         case .failed: changeState(to: .unauthorized)
