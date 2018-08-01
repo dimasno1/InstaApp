@@ -16,7 +16,7 @@ struct Environment {
         return false
         #endif
     }
-    
+
     static var isRelease: Bool {
         #if RELEASE
         return true
