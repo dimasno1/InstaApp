@@ -9,16 +9,16 @@
 import Foundation
 
 class InstaVideoMeta: InstaMeta {
-    
+
     var videos: [String: Video]?
-    
+
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
         let videosDecoder = try decoder.container(keyedBy: VideoCodingKeys.self)
-        
+
         videos = try videosDecoder.decode([String: Video].self, forKey: .videos)
     }
-    
+
    enum VideoCodingKeys: String, CodingKey {
         case videos
     }

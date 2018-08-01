@@ -9,7 +9,7 @@
 import Foundation
 
 class Endpoint {
-    
+
     init(purpose: Purpose, parameters: [Parameter: String]) {
         self.purpose = purpose
         self.parameters = parameters
@@ -26,7 +26,7 @@ extension Endpoint {
         case tags
         case authorize
     }
-    
+
     enum Parameter: String {
         case max_id
         case min_id
@@ -39,5 +39,5 @@ extension Endpoint {
         case response_type
         case scope
     }
-    
+
 }

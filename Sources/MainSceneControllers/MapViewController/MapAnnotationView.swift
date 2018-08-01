@@ -8,28 +8,28 @@
 import MapKit
 
 class MapAnnotationView: MKMarkerAnnotationView {
-    
+
     static var identifier: String {
         return String(describing: self)
     }
-    
+
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: MapAnnotationView.identifier)
-        
+
         canShowCallout = true
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         image = nil
     }
-    
+
     func setup(imageURL: URL) {
-        
+
     }
-    
+
 }

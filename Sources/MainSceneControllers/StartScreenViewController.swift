@@ -9,116 +9,114 @@
 import UIKit
 import SnapKit
 
+protocol StartScreenViewControllerDelegate: AnyObject {
+    func startScreenViewController(_ controller: StartScreenViewController, wantsToRepeatAuthorization: Bool)
+}
+
 class StartScreenViewController: UIViewController {
-    
-    init(token: Token?) {
-        self.state = State(token: token)
+
+    weak var delegate: StartScreenViewControllerDelegate?
+
+    init(state: State, delegate: StartScreenViewControllerDelegate? = nil) {
+        self.state = state
+        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("Not implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = .white
         view.addSubview(stateTextLabel)
         view.addSubview(logoImageView)
+        view.addSubview(repeatButton)
+
         setup()
+        makeConstraints()
     }
-    
-    func changeState(to: State) {
-        self.state = to
-        stateTextLabel.text = state.description
+
+    func changeLabelText(to: String) {
+        stateTextLabel.text = to
     }
-    
+
     private func setup() {
-        let width = view.bounds.size.width / 3
-        
         logoImageView.image = R.image.logo()
-        logoImageView.center = view.center
-        logoImageView.bounds.size = CGSize(width: width, height: width)
-        
+
         stateTextLabel.text = state.description
         stateTextLabel.font = UIFont.billabong
-        stateTextLabel.sizeToFit()
-        stateTextLabel.center.x = view.center.x
-        stateTextLabel.center.y = logoImageView.frame.maxY + 20
+
+        if state == .authorized {
+            repeatButton.isHidden = true
+        }
     }
-    
+
     private func makeConstraints() {
         let width = view.bounds.size.width / 3
-        
+        let offset = 20
+
         logoImageView.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.width.equalTo(width)
             make.height.equalTo(logoImageView.snp.width)
         }
-    }
-    
-    private func prepareActionButton(for state: State) {
-        if case state == .error {
-            actionButton.setTitle("Repeat authorization", for: .normal)
-        } else if case state == .succes(token:_) {
-            actionButton.setTitle("Start searching", for: .normal)
+
+        stateTextLabel.sizeToFit()
+        stateTextLabel.snp.makeConstraints { make in
+            make.top.equalTo(logoImageView.snp.bottom).offset(offset)
+            make.centerX.equalToSuperview()
+        }
+
+        repeatButton.sizeToFit()
+        repeatButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-offset)
         }
     }
-    
+
+    @objc private func buttonTapped(_ button: UIButton) {
+        delegate?.startScreenViewController(self, wantsToRepeatAuthorization: true)
+    }
+
     enum State {
-        case error
-        case succes(token: String)
-        
+        case unauthorized
+        case authorized
+
         var description: String {
             switch self {
-            case .error: return "Sorry, you're not authorized. Try again"
-            case .succes: return "Now you're ready to search for photos"
+            case .unauthorized: return "Sorry, you're not authorized"
+            case .authorized: return "Now you're ready to search for photos"
             }
         }
-        
-        init(token: String?) {
-            self = token.flatMap { .succes(token: $0) } ?? .error
-        }
     }
-    
-    private var authorized: Bool {
-        if case .succes = state {
-            return true
-        }
-        
-        return false
-    }
-    
-    private var token: Token {
-        if case let .succes(token: token) = state {
-            return token
-        }
-        
-        return ""
-    }
-    
-    
-    private var actionButton: UIButton = {
+
+    private var repeatButton: UIButton = {
         let button = UIButton(type: .system)
-        
+        button.setTitle("Repeat".uppercased(), for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .green
+        button.addTarget(nil, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+
         return button
     }()
-    
+
     private var state: State
     private let logoImageView = UIImageView()
     private let stateTextLabel = UILabel()
 }
 
 extension UIViewController {
-    
+
     func addChild(_ controller: UIViewController, to container: UIView) {
         self.addChildViewController(controller)
         controller.view.frame = container.bounds
         container.addSubview(controller.view)
         controller.didMove(toParentViewController: self)
     }
-    
+
     func removeFromParent() {
         willMove(toParentViewController: nil)
         view.removeFromSuperview()
