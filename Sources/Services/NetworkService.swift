@@ -25,8 +25,6 @@ class NetworkService: NSObject {
     func makeRequest(for searchWord: String, with token: Token, parser: InstaDataParser, callback: @escaping Callback) {
         lastCreatedDataTask?.cancel()
 
-        self.parser = parser
-
         guard let url = makeURL(for: searchWord, token: token) else {
             callback(nil, NetworkServiceError.invalidURL)
             return
@@ -60,7 +58,6 @@ class NetworkService: NSObject {
         return url
     }
 
-    private var parser: InstaDataParser?
     private var lastCreatedDataTask: URLSessionDataTask?
     private lazy var session = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
 }

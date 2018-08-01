@@ -80,6 +80,7 @@ extension AuthorizeViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         decisionHandler(WKNavigationActionPolicy.allow)
         guard let stringNavigationURL = navigationAction.request.url?.absoluteString else {
+
             return
         }
 
@@ -88,13 +89,13 @@ extension AuthorizeViewController: WKNavigationDelegate {
         }
 
         let successPhrase = "#access_token="
-        if stringNavigationURL.contains(successPhrase) {
-            guard let range = stringNavigationURL.range(of: successPhrase) else {
-                return
-            }
+        guard let range = stringNavigationURL.range(of: successPhrase) else {
 
-            let accessToken = String(stringNavigationURL[range.upperBound...])
-            delegate?.didReceive(self, result: .success(accessToken))
+            return
         }
+
+        let accessToken = String(stringNavigationURL[range.upperBound...])
+        delegate?.didReceive(self, result: .success(accessToken))
     }
 }
+// law of demetra

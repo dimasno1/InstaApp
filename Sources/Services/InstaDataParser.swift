@@ -25,6 +25,7 @@ class InstaDataParser {
             throw InstaDataParserError.unableToParseData
         }
 
+        // flatmap, compactmap, reduce, filter
         instaData.forEach { meta in
             switch meta {
             case .left(let photoMeta): collectedMeta.append(photoMeta)

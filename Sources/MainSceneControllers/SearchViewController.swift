@@ -54,7 +54,7 @@ class SearchViewController: UIViewController {
                 return
             }
 
-            self?.buffer = self?.searchController.searchBar.text ?? ""
+            // FIXME: self?
             self?.searchController.dismiss(animated: true, completion: nil)
 
             let searchResultsController = change.newValue == 0 ? MapViewController(meta: meta) : ListCollectionViewController(meta: meta)
