@@ -9,51 +9,54 @@
 import UIKit
 
 class MainContainerViewController: UIViewController {
-
+    
     init(with state: State) {
         self.state = state
-
+        
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         self.state = .unauthorized
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.addSubview(containerView)
-        containerView.frame = view.bounds
-
         changeState(to: state)
     }
-
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        containerView.frame = view.bounds
+    }
+    
     private func changeState(to: State) {
         state = to
     }
-
+    
     enum State {
         case authorized(Token)
         case unauthorized
         case needsAuthorization
     }
-
+    
     private var state: State {
         didSet {
             visibleViewController.removeFromParent()
-
+            
             switch state {
             case let .authorized(token): visibleViewController = UINavigationController(rootViewController: SearchViewController(token: token))
             case .needsAuthorization: visibleViewController = AuthorizeViewController(delegate: self)
             case .unauthorized: visibleViewController = StartScreenViewController(state: .unauthorized, delegate: self)
             }
-
+            
             addChild(visibleViewController, to: containerView)
         }
     }
-
+    
     private var containerView = UIView()
     private lazy var visibleViewController = UIViewController()
 }
